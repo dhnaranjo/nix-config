@@ -14,23 +14,23 @@
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs:
-  let 
+  let
 
     inherit (darwin.lib) darwinSystem;
     inherit (inputs.nixpkgs-unstable.lib) attrValues makeOverridable optionalAttrs singleton;
 
     # Configuration for `nixpkgs`
     nixpkgsConfig = {
-      config = { allowUnfree = true; };
-    }; 
+     config = { allowUnfree = true; };
+    };
   in
   {
     # My `nix-darwin` configs
-      
+
     darwinConfigurations = rec {
       dazmin = darwinSystem {
         system = "aarch64-darwin";
-        modules = [ 
+        modules = [
           # Main `nix-darwin` config
           ./configuration.nix
           # `home-manager` module
@@ -40,9 +40,10 @@
             # `home-manager` config
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.dazmin = import ./home.nix;            
+            home-manager.users.dazmin = import ./home.nix;
           }
           ./brew.nix
+          ./postgres.nix
         ];
       };
     };

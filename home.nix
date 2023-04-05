@@ -15,6 +15,7 @@ in
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+  programs.zsh.enable = true;
 
   # Htop
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
@@ -48,9 +49,8 @@ in
     wget
 
     # Apps
-    _1password
-    kitty
-    raycast
+    # raycast via Homebrew
+    # _1password via Homebrew
 
     # Services
     colima
@@ -58,24 +58,16 @@ in
 
     # Dev stuff
     ruby_3_2
+    nodejs
+    yarn
     jq
+
+    # Nix helpers
+    nil # Language server
+    cachix # Makes stuff faster?
   ] ++ lib.optionals stdenv.isDarwin [
     m-cli # useful macOS CLI commands
   ];
 
   # Misc configuration files --------------------------------------------------------------------{{{
-
-  # https://docs.haskellstack.org/en/stable/yaml_configuration/#non-project-specific-config
-  home.file.".stack/config.yaml".text = lib.generators.toYAML {} {
-    templates = {
-      scm-init = "git";
-      params = {
-        author-name = "Desmond Naranjo"; # config.programs.git.userName;
-        author-email = "itsdesmond@hey.com"; # config.programs.git.userEmail;
-        github-username = "dhnaranjo";
-      };
-    };
-    nix.enable = true;
-  };
-
 }
