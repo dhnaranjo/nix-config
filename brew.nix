@@ -14,6 +14,7 @@
       "1password-cli"
       "raycast"
       "visual-studio-code"
+      "chromium"
     ];
   };
 }

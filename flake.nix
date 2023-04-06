@@ -45,6 +45,7 @@
           ./brew.nix
           ./postgres.nix
           ./redis.nix
+          ./containers.nix
         ];
       };
     };

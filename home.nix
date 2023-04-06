@@ -8,8 +8,6 @@ in
 {
   home.stateVersion = "22.05";
 
-  # https://github.com/malob/nixpkgs/blob/master/home/default.nix
-
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
@@ -51,10 +49,6 @@ in
     # Apps
     # raycast via Homebrew
     # _1password via Homebrew
-
-    # Services
-    colima
-    docker-client
 
     # Dev stuff
     ruby_3_2
