@@ -13,7 +13,14 @@ in
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.zsh.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    initExtra = ''
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
+  };
 
   # Htop
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
@@ -55,6 +62,7 @@ in
     nodejs
     yarn
     jq
+    gptcommit
 
     # Nix helpers
     nil # Language server

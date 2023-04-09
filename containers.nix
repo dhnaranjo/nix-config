@@ -11,7 +11,7 @@ in
       (writeShellScriptBin "browserless" ''
         colima start
         docker run -d --rm \
-          -p 8043:3000 \
+          -p 8403:3000 \
           --name browserless \
           browserless/chrome
     '')

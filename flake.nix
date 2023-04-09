@@ -46,6 +46,7 @@
           ./postgres.nix
           ./redis.nix
           ./containers.nix
+          ./yabai.nix
         ];
       };
     };
