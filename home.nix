@@ -7,6 +7,9 @@ let
 in
 {
   home.stateVersion = "22.05";
+  imports = [
+    ./hotkeys.nix
+  ];
 
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
