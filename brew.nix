@@ -27,6 +27,7 @@ in
       "slack"
       "spotify"
       "adguard"
+      "key-codes"
     ];
   };
 }
