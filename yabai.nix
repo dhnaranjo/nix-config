@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   spacebarHeight = 26;
   spacebarDisplay = "main";
@@ -35,17 +35,12 @@ in
       icon_font = ''"Font Awesome 6 Free:Solid:12.0"'';
     };
   };
-
-  launchd.user.agents.yabai = {
-    serviceConfig.StandardErrorPath = "/var/log/yabai_user.err.log";
-    serviceConfig.StandardOutPath = "/var/log/yabai_user.out.log";
-  };
-
-  launchd.daemons.yabai-sa = {
+  launchd.daemons.yabai-sa = lib.mkForce {
     script = ''
-      # Current upstream script calls --check-sa & --install-sa, removed in v5
       ${pkgs.yabai}/bin/yabai --load-sa
     '';
+    serviceConfig.RunAtLoad = true;
+    serviceConfig.KeepAlive.SuccessfulExit = false;
     serviceConfig.StandardErrorPath = "/var/log/yabai_daemon.err.log";
     serviceConfig.StandardOutPath = "/var/log/yabai_daemon.out.log";
   };
