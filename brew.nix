@@ -28,6 +28,7 @@ in
       "spotify"
       "adguard"
       "key-codes"
+      "firefox"
     ];
   };
 }

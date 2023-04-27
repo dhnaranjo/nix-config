@@ -11,6 +11,10 @@ in
     ./hotkeys.nix
   ];
 
+  home.sessionVariables = {
+    TERM = "xterm-256color";
+  };
+
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
@@ -65,7 +69,7 @@ in
     nodejs
     yarn
     jq
-    gptcommit
+    stripe-cli
 
     # Nix helpers
     nil # Language server

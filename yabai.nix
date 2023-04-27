@@ -36,10 +36,17 @@ in
     };
   };
 
-  # Current upstream script calls --check-sa & --install-sa, removed in v5
+  launchd.user.agents.yabai = {
+    serviceConfig.StandardErrorPath = "/var/log/yabai_user.err.log";
+    serviceConfig.StandardOutPath = "/var/log/yabai_user.out.log";
+  };
+
   launchd.daemons.yabai-sa = {
     script = ''
+      # Current upstream script calls --check-sa & --install-sa, removed in v5
       ${pkgs.yabai}/bin/yabai --load-sa
     '';
+    serviceConfig.StandardErrorPath = "/var/log/yabai_daemon.err.log";
+    serviceConfig.StandardOutPath = "/var/log/yabai_daemon.out.log";
   };
 }
