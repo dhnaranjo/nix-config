@@ -2,6 +2,17 @@
 let
   spacebarHeight = 26;
   spacebarDisplay = "main";
+
+  yabaiWrapper = with pkgs; writeShellScriptBin "yabai-wrapper" ''
+    yabaiPath="${pkgs.yabai}/bin/yabai"
+    if [ -n "$yabaiPath" ]; then
+        "$yabaiPath" --load-sa
+    else
+        echo "Error: yabai binary not found" >&2
+        exit 1
+    fi
+  '';
+
 in
 {
   services.yabai = {
@@ -35,9 +46,10 @@ in
       icon_font = ''"Font Awesome 6 Free:Solid:12.0"'';
     };
   };
+
   launchd.daemons.yabai-sa = lib.mkForce {
     script = ''
-      ${pkgs.yabai}/bin/yabai --load-sa
+      exec ${yabaiWrapper}/bin/yabai-wrapper
     '';
     serviceConfig.RunAtLoad = true;
     serviceConfig.KeepAlive.SuccessfulExit = false;
