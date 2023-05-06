@@ -8,7 +8,7 @@ in
 {
   home.stateVersion = "22.05";
   imports = [
-    ./hotkeys.nix
+    ./disable_native_hotkeys.nix
   ];
 
   home.sessionVariables = {

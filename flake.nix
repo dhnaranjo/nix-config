@@ -47,6 +47,7 @@
           ./redis.nix
           ./containers.nix
           ./yabai.nix
+          ./hotkeys.nix
         ];
       };
     };
