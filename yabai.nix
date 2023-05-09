@@ -32,7 +32,7 @@ in
       yabai -m config window_border on
       yabai -m config window_border_width 6
       yabai -m config active_window_border_color 0xff775759
-    yabai -m config normal_window_border_color 0x0000000000
+      yabai -m config normal_window_border_color 0x0000000000
     '';
   };
 

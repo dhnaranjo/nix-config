@@ -29,6 +29,8 @@ in
       "adguard"
       "key-codes"
       "firefox"
+      "lunar"
+      "balenaetcher"
     ];
   };
 }
