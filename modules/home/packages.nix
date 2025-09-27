@@ -5,7 +5,6 @@
   # Search for packages here: https://search.nixos.org/packages
   home.packages = with pkgs; [
     omnix
-    claude-code
 
     # Unix tools
     ripgrep # Better `grep`
@@ -13,12 +12,15 @@
     sd
     tree
     gnumake
+    moreutils # `vipe` and others https://joeyh.name/code/moreutils/
 
     # Nix dev
     cachix
     nil # Nix language server
     nix-info
     nixpkgs-fmt
+
+    claude-code
   ];
 
   # Programs natively supported by home-manager.
