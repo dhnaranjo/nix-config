@@ -67,7 +67,19 @@
         yaml
       ];
     };
-    blink-cmp.enable = true;
+    blink-cmp = {
+      enable = true;
+      settings = {
+        completion = {
+          documentation = {
+            auto_show = true;
+          };
+        };
+        signature = {
+          enabled = true;
+        };
+      };
+    };
     which-key.enable = true;
     noice = {
       enable = true;
