@@ -5,7 +5,6 @@
     lg = "lazygit";
   };
 
-  # https://nixos.asia/en/git
   programs = {
     git = {
       enable = true;
@@ -16,8 +15,7 @@
         ci = "commit";
       };
       extraConfig = {
-        # init.defaultBranch = "master";
-        # pull.rebase = "false";
+        init.defaultBranch = "main";
       };
     };
     lazygit.enable = true;

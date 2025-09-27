@@ -33,7 +33,6 @@
       enable = true;
     };
     noice = {
-      # WARNING: This is considered experimental feature, but provides nice UX
       enable = true;
       settings.presets = {
         bottom_search = true;
@@ -64,17 +63,8 @@
     lsp = {
       enable = true;
       servers = {
-        hls = {
-          enable = true;
-          installGhc = false; # Managed by Nix devShell
-        };
         marksman.enable = true;
         nil_ls.enable = true;
-        rust_analyzer = {
-          enable = true;
-          installCargo = false;
-          installRustc = false;
-        };
       };
     };
     lazygit.enable = true;
