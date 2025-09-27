@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix flake show:*)",
+      "Bash(nix registry:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
