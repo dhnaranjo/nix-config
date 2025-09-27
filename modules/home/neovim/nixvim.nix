@@ -68,6 +68,7 @@
       };
     };
     lazygit.enable = true;
+    claude-code.enable = true;
   };
   keymaps = [
     # Open lazygit within nvim. 

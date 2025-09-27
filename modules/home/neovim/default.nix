@@ -6,5 +6,6 @@
 
   programs.nixvim = import ./nixvim.nix // {
     enable = true;
+    nixpkgs.config.allowUnfree = true;
   };
 }
