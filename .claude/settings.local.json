@@ -3,9 +3,11 @@
     "allow": [
       "Bash(nix flake show:*)",
       "Bash(nix registry:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(just run)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "outputStyle": "default"
 }
