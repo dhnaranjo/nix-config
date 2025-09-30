@@ -20,7 +20,14 @@
     nix-info
     nixpkgs-fmt
 
-    claude-code
+    (pkgs.claude-code.overrideAttrs (old: {
+      version = "2.0.1";
+      src = pkgs.fetchzip {
+        url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.1.tgz";
+        hash = "sha256-LUbDPFa0lY74MBU4hvmYVntt6hVZy6UUZFN0iB4Eno8=";
+      };
+    }))
+    f3d
   ];
 
   # Programs natively supported by home-manager.
