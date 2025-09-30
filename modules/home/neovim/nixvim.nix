@@ -117,9 +117,6 @@
       servers = {
         marksman.enable = true;
         nil_ls.enable = true;
-        openscad_lsp = {
-          enable = true;
-        };
       };
     };
     lsp-format.enable = true;
