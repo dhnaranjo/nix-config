@@ -19,9 +19,6 @@
     nil # Nix language server
     nix-info
     nixpkgs-fmt
-
-    claude-code
-    f3d
   ];
 
   # Programs natively supported by home-manager.
