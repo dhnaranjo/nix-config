@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(nix flake show:*)",
-      "Bash(nix registry:*)"
+      "Bash(nix registry:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

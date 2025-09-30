@@ -3,6 +3,7 @@
 {
   imports = [
     ./common
+    ./overlays.nix
   ];
 
   # Use TouchID for `sudo` authentication

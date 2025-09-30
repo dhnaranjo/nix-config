@@ -11,7 +11,10 @@
     dependencies = {
       nodejs.enable = true;
       tree-sitter.enable = true;
-      claude-code.enable = true;
+      claude-code = {
+        enable = true;
+        package = pkgs.claude-code;
+      };
       imagemagick.enable = true;
     };
 

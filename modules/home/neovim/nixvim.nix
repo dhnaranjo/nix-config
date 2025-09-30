@@ -120,7 +120,10 @@
       };
     };
     lsp-format.enable = true;
-    claude-code.enable = true;
+    claude-code = {
+      enable = true;
+      package = pkgs.claude-code;
+    };
 
   };
   keymaps = [
