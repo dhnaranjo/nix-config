@@ -28,45 +28,7 @@
     web-devicons.enable = true;
     lualine.enable = true;
     bufferline.enable = true;
-    treesitter = {
-      enable = true;
-      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-        bash
-        css
-        diff
-        dockerfile
-        git_config
-        gitcommit
-        gitignore
-        gleam
-        go
-        graphql
-        html
-        ini
-        javascript
-        jq
-        json
-        just
-        lua
-        make
-        markdown
-        markdown_inline
-        nix
-        python
-        regex
-        ruby
-        scss
-        sql
-        ssh_config
-        swift
-        terraform
-        toml
-        tsx
-        typescript
-        xml
-        yaml
-      ];
-    };
+    treesitter.enable = true;
     blink-cmp = {
       enable = true;
       settings = {
