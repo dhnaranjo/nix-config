@@ -43,6 +43,16 @@
 
       binds.whichKey.enable = true;
 
+      # Editor enhancements (mini.nvim plugins)
+      mini = {
+        comment.enable = true;
+        hipatterns.enable = true;
+        pairs.enable = true;
+        sessions.enable = true;
+        snippets.enable = true;
+        surround.enable = true;
+      };
+
       ui.noice = {
         enable = true;
         setupOpts.presets = {
@@ -81,6 +91,50 @@
           terminal = {
             keys = {
               q = "hide";
+            };
+          };
+
+          # Indent guides and scope visualization
+          indent = {
+            enable = true;
+            char = "│";
+            only_scope = false;
+            only_current = false;
+            animate = {
+              enabled = true;
+              style = "out";
+              easing = "linear";
+              duration = {
+                step = 20;
+                total = 500;
+              };
+            };
+          };
+
+          # LSP reference highlighting with navigation
+          words = {
+            enable = true;
+            debounce = 200;
+            notify_jump = false;
+            notify_end = true;
+            foldopen = true;
+            jumplist = true;
+            modes = [
+              "n"
+              "i"
+              "c"
+            ];
+          };
+
+          # Smooth scrolling
+          scroll = {
+            enable = true;
+            animate = {
+              duration = {
+                step = 15;
+                total = 250;
+              };
+              easing = "linear";
             };
           };
         };

@@ -28,34 +28,34 @@ in
     openscad-unstable
   ];
 
-  programs.nixvim = {
-    plugins = {
-      openscad = {
-        enable = true;
-        package = openscad-nvim;
-        fuzzyFinderPlugin = null;
-        settings = {
-          pdf_command = "open";
-          load_snippets = false;
-
-          help_trig_key = "<A-h>";
-          cheatsheet_toggle_key = "<Enter>";
-          exec_openscad_trig_key = "<A-o>";
-        };
-      };
-
-      treesitter = {
-        enable = true;
-        grammarPackages = [
-          tree-sitter-openscad
-        ];
-      };
-      lsp.servers.openscad_lsp = {
-        enable = true;
-      };
-    };
-    extraConfigLua = ''
-      vim.g.openscad_fuzzy_finder = 'snacks'
-    '';
-  };
+  # programs.nixvim = {
+  #   plugins = {
+  #     openscad = {
+  #       enable = true;
+  #       package = openscad-nvim;
+  #       fuzzyFinderPlugin = null;
+  #       settings = {
+  #         pdf_command = "open";
+  #         load_snippets = false;
+  #
+  #         help_trig_key = "<A-h>";
+  #         cheatsheet_toggle_key = "<Enter>";
+  #         exec_openscad_trig_key = "<A-o>";
+  #       };
+  #     };
+  #
+  #     treesitter = {
+  #       enable = true;
+  #       grammarPackages = [
+  #         tree-sitter-openscad
+  #       ];
+  #     };
+  #     lsp.servers.openscad_lsp = {
+  #       enable = true;
+  #     };
+  #   };
+  #   extraConfigLua = ''
+  #     vim.g.openscad_fuzzy_finder = 'snacks'
+  #   '';
+  # };
 }
