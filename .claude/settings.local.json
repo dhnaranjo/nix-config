@@ -4,7 +4,11 @@
       "Bash(nix flake show:*)",
       "Bash(nix registry:*)",
       "Bash(git add:*)",
-      "Bash(just run)"
+      "Bash(just run)",
+      "WebFetch(domain:notashelf.github.io)",
+      "Bash(nix flake check:*)",
+      "Read(//Users/dazmin/Documents/code/nvf/**)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []

@@ -19,6 +19,9 @@
     nil # Nix language server
     nix-info
     nixpkgs-fmt
+
+    yt-dlp
+    aria2
   ];
 
   # Programs natively supported by home-manager.
