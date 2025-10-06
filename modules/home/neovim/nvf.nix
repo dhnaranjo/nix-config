@@ -31,6 +31,16 @@
 
       tabline.nvimBufferline.enable = true;
 
+      languages = {
+        enableTreesitter = true;
+
+        markdown.enable = true;
+        nix.enable = true;
+      };
+      lsp = {
+        enable = true;
+        formatOnSave = true;
+      };
       treesitter.enable = true;
 
       autocomplete.blink-cmp = {
@@ -62,15 +72,6 @@
         };
       };
 
-      lsp = {
-        enable = true;
-        formatOnSave = true;
-      };
-
-      languages = {
-        markdown.lsp.enable = true;
-        nix.lsp.enable = true;
-      };
 
       utility.snacks-nvim = {
         enable = true;

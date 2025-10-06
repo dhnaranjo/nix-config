@@ -22,6 +22,8 @@
 
     yt-dlp
     aria2
+
+    openscad-unstable
   ];
 
   # Programs natively supported by home-manager.

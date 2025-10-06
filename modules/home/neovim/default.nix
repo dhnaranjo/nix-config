@@ -6,6 +6,7 @@
 {
   imports = [
     flake.inputs.nvf.homeManagerModules.default
+    ./languages/openscad.nix
   ];
 
   programs.nvf = import ./nvf.nix { inherit pkgs; } // {
