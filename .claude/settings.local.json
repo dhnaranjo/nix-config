@@ -1,27 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "Bash(nix flake show:*)",
-      "Bash(nix registry:*)",
-      "Bash(git add:*)",
-      "Bash(just run)",
-      "WebFetch(domain:notashelf.github.io)",
-      "Bash(nix flake check:*)",
-      "Read(//Users/dazmin/Documents/code/nvf/**)",
-      "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(curl:*)",
-      "Bash(mkdir:*)",
-      "Bash(git worktree:*)",
-      "Read(//Users/dazmin/.config/nixconfig-monitor-pam/**)",
-      "Bash(ioreg:*)",
-      "Bash(system_profiler:*)",
-      "WebFetch(domain:discourse.nixos.org)",
       "WebSearch",
-      "WebFetch(domain:nix-darwin.github.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:github.io)",
+      "WebFetch(domain:githubusercontent.com)",
+      "WebFetch(domain:nixos.org)",
+      "WebFetch(domain:mynixos.com)",
+
+      "Bash(nix flake show:*)",
+      "Bash(nix flake check:*)",
+      "Bash(nix registry:*)",
       "Bash(nix log:*)",
-      "Read(//nix/store/3gzz6ljd9k6k1d493j0xyjv8x8lddphd-source/modules/programs/firefox/**)",
-      "Read(//nix/store/3gzz6ljd9k6k1d493j0xyjv8x8lddphd-source/modules/programs/**)"
+      "Bash(nix-prefetch-url:*)",
+      "Read(//nix/store/**)",
+
+      "Bash(just:*)"
     ],
     "deny": [],
     "ask": []
