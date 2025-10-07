@@ -21,10 +21,11 @@ in
   system = {
     defaults = {
       dock = {
-        # autohide = true;
+        autohide = true;
+        static-only = true;
         # customize Hot Corners
         wvous-tl-corner = 2; # top-left - Mission Control
-        # wvous-tr-corner = 13; # top-right - Lock Screen
+        wvous-tr-corner = 14; # top-right - Quick Note
         wvous-bl-corner = 3; # bottom-left - Application Windows
         wvous-br-corner = 4; # bottom-right - Desktop
       };
@@ -36,12 +37,16 @@ in
         QuitMenuItem = true; # enable quit menu item
         ShowPathbar = true; # show path bar
         ShowStatusBar = true; # show status bar
+        CreateDesktop = false; # no icons on desktop
+        NewWindowTarget = "Home";
       };
+
+      screencapture = { }; # Look into these!
     };
 
     keyboard = {
-      # enableKeyMapping = true;
-      # remapCapsLockToControl = true;
+      enableKeyMapping = true;
+      remapCapsLockToEscape = true;
     };
   };
 }

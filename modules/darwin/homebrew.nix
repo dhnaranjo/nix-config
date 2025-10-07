@@ -17,6 +17,8 @@
 
     casks = [
       "ghostty"
+      "claude"
+      "orcaslicer"
     ];
   };
 }

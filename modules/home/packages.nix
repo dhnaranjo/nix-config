@@ -43,6 +43,7 @@
     aria2
 
     openscad-unstable
+    # orca-slicer needs to be installed with Homebrew
   ];
 
   # Programs natively supported by home-manager.
