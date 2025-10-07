@@ -9,6 +9,7 @@ in
 {
   imports = [
     self.darwinModules.default
+    inputs.nix-homebrew.darwinModules.nix-homebrew
   ];
 
   nixpkgs.config.allowUnfree = true;
