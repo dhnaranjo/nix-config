@@ -17,7 +17,8 @@
       "Bash(ioreg:*)",
       "Bash(system_profiler:*)",
       "WebFetch(domain:discourse.nixos.org)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:nix-darwin.github.io)"
     ],
     "deny": [],
     "ask": []

@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./common
+    ./homebrew.nix
   ];
 
   # Monitor-based authentication + TouchID fallback for sudo
