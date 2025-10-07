@@ -33,8 +33,6 @@
 
       languages = {
         enableTreesitter = true;
-
-        markdown.enable = true;
         nix.enable = true;
       };
       lsp = {
