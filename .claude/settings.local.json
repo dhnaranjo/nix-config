@@ -11,7 +11,13 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(curl:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(git worktree:*)",
+      "Read(//Users/dazmin/.config/nixconfig-monitor-pam/**)",
+      "Bash(ioreg:*)",
+      "Bash(system_profiler:*)",
+      "WebFetch(domain:discourse.nixos.org)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
