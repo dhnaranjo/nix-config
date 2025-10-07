@@ -23,6 +23,7 @@
   };
 
   # Remove packages that must be handled by Homebrew
+  # Consider package/nur/gigamonster256.ghostty-darwin
   home-manager.users.dazmin = {
     programs = {
       ghostty.package = null;

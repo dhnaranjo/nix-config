@@ -43,11 +43,10 @@
     aria2
   ];
 
-  # Programs natively supported by home-manager.
-  # They can be configured in `programs.*` instead of using home.packages.
   programs = {
     # Better `cat`
-    bat.enable = true;
+    # Disabled because of error related to Ghostty install via homebrew. Revisit
+    bat.enable = false;
     # Type `<ctrl> + r` to fuzzy search your shell history
     fzf.enable = true;
     jq.enable = true;
