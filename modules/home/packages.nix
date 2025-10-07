@@ -1,10 +1,29 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # Nix packages to install to $HOME
   #
   # Search for packages here: https://search.nixos.org/packages
   home.packages = with pkgs; [
     omnix
+
+    # Updating outdated Mac builtins
+    coreutils
+    findutils
+    gnused
+    gawk
+    gnugrep
+    curl
+    wget
+    openssh
+    git
+    rsync
+    gnutar
+    gzip
+    bzip2
+    xz
+    bash
+    zsh
+    less
 
     # Unix tools
     ripgrep # Better `grep`
@@ -37,5 +56,10 @@
     # Install btop https://github.com/aristocratos/btop
     btop.enable = true;
     yt-dlp.enable = true;
+
+    ghostty = {
+      enable = true;
+    }
+    // lib.mkIf pkgs.stdenv.isDarwin { package = null; }; # Supplied by Homebrew
   };
 }

@@ -7,7 +7,6 @@ in
 {
   imports = [
     ./common
-    ./overlays.nix
   ];
 
   # Monitor-based authentication + TouchID fallback for sudo
