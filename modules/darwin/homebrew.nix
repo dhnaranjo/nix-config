@@ -18,7 +18,15 @@
     casks = [
       "ghostty"
       "claude"
-      "orcaslicer"
+      "firefox"
     ];
+  };
+
+  # Remove packages that must be handled by Homebrew
+  home-manager.users.dazmin = {
+    programs = {
+      ghostty.package = null;
+      firefox.package = null;
+    };
   };
 }

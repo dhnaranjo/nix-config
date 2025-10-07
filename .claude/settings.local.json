@@ -18,7 +18,10 @@
       "Bash(system_profiler:*)",
       "WebFetch(domain:discourse.nixos.org)",
       "WebSearch",
-      "WebFetch(domain:nix-darwin.github.io)"
+      "WebFetch(domain:nix-darwin.github.io)",
+      "Bash(nix log:*)",
+      "Read(//nix/store/3gzz6ljd9k6k1d493j0xyjv8x8lddphd-source/modules/programs/firefox/**)",
+      "Read(//nix/store/3gzz6ljd9k6k1d493j0xyjv8x8lddphd-source/modules/programs/**)"
     ],
     "deny": [],
     "ask": []

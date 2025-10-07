@@ -9,7 +9,7 @@
       isDefault = true;
 
       # Extensions for ad blocking and privacy
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         ublock-origin
         privacy-badger
       ];
@@ -42,11 +42,7 @@
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
       };
-
-      search = {
-        default = "DuckDuckGo";
-        force = true;
-      };
     };
-  };
+  }
+  // lib.mkIf pkgs.stdenv.isDarwin { package = null; };
 }

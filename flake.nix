@@ -26,6 +26,7 @@
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    nur.url = "github:nix-community/NUR";
 
   };
 

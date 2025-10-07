@@ -1,6 +1,9 @@
 # See /modules/darwin/* for actual settings
 # This file is just *top-level* configuration.
-{ flake, ... }:
+{
+  flake,
+  ...
+}:
 
 let
   inherit (flake) inputs;
@@ -13,6 +16,7 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ inputs.nur.overlays.default ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking.hostName = "flatbutt";

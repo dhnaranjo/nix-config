@@ -1,54 +1,47 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   # Nix packages to install to $HOME
   #
   # Search for packages here: https://search.nixos.org/packages
-  home.packages =
-    with pkgs;
-    [
-      omnix
+  home.packages = with pkgs; [
+    omnix
 
-      # Updating outdated Mac builtins
-      coreutils
-      findutils
-      gnused
-      gawk
-      gnugrep
-      curl
-      wget
-      openssh
-      git
-      rsync
-      gnutar
-      gzip
-      bzip2
-      xz
-      bash
-      zsh
-      less
+    # Updating outdated Mac builtins
+    coreutils
+    findutils
+    gnused
+    gawk
+    gnugrep
+    curl
+    wget
+    openssh
+    git
+    rsync
+    gnutar
+    gzip
+    bzip2
+    xz
+    bash
+    zsh
+    less
 
-      # Unix tools
-      ripgrep # Better `grep`
-      fd
-      sd
-      tree
-      gnumake
-      moreutils # `vipe` and others https://joeyh.name/code/moreutils/
+    # Unix tools
+    ripgrep # Better `grep`
+    fd
+    sd
+    tree
+    gnumake
+    moreutils # `vipe` and others https://joeyh.name/code/moreutils/
 
-      # Nix dev
-      cachix
-      nil # Nix language server
-      nix-info
-      nixpkgs-fmt
+    # Nix dev
+    cachix
+    nil # Nix language server
+    nix-info
+    nixpkgs-fmt
 
-      yt-dlp
-      aria2
-
-      openscad-unstable
-    ]
-    ++ lib.optionals (!pkgs.stdenv.isDarwin) [
-      orca-slicer
-    ];
+    yt-dlp
+    aria2
+  ];
 
   # Programs natively supported by home-manager.
   # They can be configured in `programs.*` instead of using home.packages.
@@ -62,9 +55,6 @@
     btop.enable = true;
     yt-dlp.enable = true;
 
-    ghostty = {
-      enable = true;
-    }
-    // lib.mkIf pkgs.stdenv.isDarwin { package = null; }; # Supplied by Homebrew
+    ghostty.enable = true;
   };
 }
