@@ -33,6 +33,14 @@
     gnumake
     moreutils # `vipe` and others https://joeyh.name/code/moreutils/
 
+    atool
+    # atool backends
+    unzip
+    zip
+    p7zip
+    unrar
+    lzip
+
     # Nix dev
     cachix
     nil # Nix language server
