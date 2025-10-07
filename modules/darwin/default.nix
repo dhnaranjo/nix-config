@@ -1,13 +1,20 @@
 # This is your nix-darwin configuration.
 # For home configuration, see /modules/home/*
+{ pkgs, ... }:
+let
+  pam_monitor = pkgs.callPackage ./pam-monitor { };
+in
 {
   imports = [
     ./common
     ./overlays.nix
   ];
 
-  # Use TouchID for `sudo` authentication
-  security.pam.services.sudo_local.touchIdAuth = true;
+  # Monitor-based authentication + TouchID fallback for sudo
+  environment.etc."pam.d/sudo_local".text = ''
+    auth       sufficient     ${pam_monitor}/lib/pam/pam_monitor.so monitor_uuid=10ACB142-0000-0000-1321-0104B5462778
+    auth       sufficient     pam_tid.so
+  '';
 
   # Configure macOS system
   # More flatbutts => https://github.com/ryan4yin/nix-darwin-kickstarter/blob/main/rich-demo/modules/system.nix
