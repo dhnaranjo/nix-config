@@ -17,7 +17,19 @@
       "Bash(just:*)",
       "Bash(nix-store:*)",
       "Bash(nix flake metadata:*)",
-      "Bash(nix derivation show:*)"
+      "Bash(nix derivation show:*)",
+      "WebFetch(domain:discourse.nixos.org)",
+      "Bash(ssh-keygen:*)",
+      "Bash(ssh-to-age)",
+      "Bash(nix-shell:*)",
+      "Bash(git add:*)",
+      "Read(//Users/dazmin/mcp/**)",
+      "Read(//Users/dazmin/.config/**)",
+      "Bash(sops:*)",
+      "Bash(cat:*)",
+      "Read(//private/var/folders/90/63h3bmm125z1d2s760x7n_c80000gn/T/secrets.d/2/rendered/**)",
+      "WebFetch(domain:opencode.ai)",
+      "Bash(curl -s https://opencode.ai/config.json)"
     ],
     "deny": [],
     "ask": []

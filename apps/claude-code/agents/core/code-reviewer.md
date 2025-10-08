@@ -2,7 +2,6 @@
 name: code-reviewer
 description: |
   Expert code reviewer who ensures quality, security, and maintainability across any programming language. Provides actionable feedback to improve code.
-model: opus
 
   Examples:
   - <example>

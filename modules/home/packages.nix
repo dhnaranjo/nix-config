@@ -49,6 +49,7 @@
 
     yt-dlp
     aria2
+    openscad-unstable
   ];
 
   programs = {

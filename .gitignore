@@ -1,2 +1,11 @@
 result
 .direnv
+
+# SOPS secrets - encrypted files are safe to commit, but keep unencrypted ones out
+secrets/**/*.yaml
+!secrets/**/*.enc.yaml
+
+# Age keys (private keys should never be committed)
+.age/
+*.age
+key.txt

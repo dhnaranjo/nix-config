@@ -2,7 +2,6 @@
 name: code-archaeologist
 description: |
   Expert at exploring, understanding, and documenting any codebase. Uncovers architecture patterns, dependencies, and hidden knowledge in legacy or unfamiliar code.
-model: opus
 
   Examples:
   - <example>
