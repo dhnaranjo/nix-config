@@ -27,6 +27,10 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     nur.url = "github:nix-community/NUR";
+    nixpkgs-firefox-darwin = {
+      url = "github:bandithedoge/nixpkgs-firefox-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 

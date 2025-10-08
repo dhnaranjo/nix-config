@@ -16,7 +16,10 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ inputs.nur.overlays.default ];
+  nixpkgs.overlays = [
+    inputs.nur.overlays.default
+    inputs.nixpkgs-firefox-darwin.overlay
+  ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking.hostName = "flatbutt";

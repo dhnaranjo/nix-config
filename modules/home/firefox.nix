@@ -1,4 +1,43 @@
 { pkgs, lib, ... }:
+let
+  buildFirefoxXpiAddon = pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon;
+
+  wrappedFirefox =
+    (pkgs.wrapFirefox (pkgs.firefox-bin.overrideAttrs (old: {
+      applicationName = "Firefox";
+      allowAddonSideload = true;
+      passthru = (old.passthru or { }) // {
+        inherit (old) meta;
+      };
+    })) { }).override
+      {
+        libcanberra-gtk3 = null;
+      };
+
+  # Can grab ID value with ex: `curl -O https://addons.mozilla.org/firefox/downloads/file/4562821/icloud_passwords-3.1.27.xpi --output-dir /tmp  -w '%{filename_effective}' | xargs -I {} acat {} manifest.json  | jq --raw-output '.browser_specific_settings.gecko.id'`
+  customAddons = {
+    icloud-passwords = buildFirefoxXpiAddon {
+      pname = "icloud-passwords";
+      version = "3.1.27";
+      addonId = "password-manager-firefox-extension@apple.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4562821/icloud_passwords-3.1.27.xpi";
+      sha256 = "0zqnkvs4f2d78k3klhl3qfqxv12d6hcqsdwkr4pmxmyd6hm2mcn1";
+      meta = with lib; {
+        homepage = "https://apple.com";
+        description = "For Apple passwords";
+        license = licenses.mit;
+        mozPermissions = [
+          "nativeMessaging" # Exchange messages with programs other than Firefox
+          "privacy" # Read and modify privacy settings
+          "tabs" # Access browser tabs
+          "webNavigation" # Access browser activity during navigation
+          "<all_urls>" # Access your data for all websites
+        ];
+        platforms = platforms.all;
+      };
+    };
+  };
+in
 {
   programs.firefox = {
     enable = true;
@@ -9,10 +48,15 @@
       isDefault = true;
 
       # Extensions for ad blocking and privacy
-      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        ublock-origin
-        privacy-badger
-      ];
+      extensions.packages =
+        with pkgs.nur.repos.rycee.firefox-addons;
+        [
+          ublock-origin
+          privacy-badger
+        ]
+        ++ (with customAddons; [
+          icloud-passwords
+        ]);
 
       settings = {
         # Privacy settings
@@ -43,6 +87,5 @@
         "media.ffmpeg.vaapi.enabled" = true;
       };
     };
-  }
-  // lib.mkIf pkgs.stdenv.isDarwin { package = null; };
+  };
 }
