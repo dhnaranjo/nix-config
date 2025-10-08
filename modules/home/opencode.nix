@@ -80,20 +80,20 @@
       };
     };
 
-    # Global instructions (equivalent to CLAUDE.md)
-    rules = builtins.readFile ../../apps/claude-code/CLAUDE.md;
+    # Global instructions (AGENTS.md)
+    rules = builtins.readFile ../../apps/ai-agents/AGENTS.md;
   };
 
   # OpenCode configuration files
   home.file = {
     # OpenCode command files
     ".config/opencode/command" = {
-      source = ../../apps/claude-code/commands;
+      source = ../../apps/ai-agents/commands;
       recursive = true;
     };
 
     ".config/opencode/agent" = {
-      source = ../../apps/claude-code/agents;
+      source = ../../apps/ai-agents/agents;
       recursive = true;
     };
   };

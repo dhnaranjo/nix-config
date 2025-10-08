@@ -1,6 +1,5 @@
-# CLAUDE.md - Global Instructions for Claude Code
-  # This file contains persistent instructions that override default behaviors
-  # Documentation: https://docs.anthropic.com/en/docs/claude-code/memory
+# AGENTS.md - AI Assistant Rules File
+  # This file contains persistent instructions that guide AI behavior
 
   ## Core Coding Principles
   1. **No artifacts** - Direct code only
@@ -19,7 +18,7 @@
   - `SCHEMAS.md` - Database schemas, data models, validation rules
   - `BUG_REFERENCE.md` - Known issues, root causes, solutions, workarounds
   - `VERSION_LOG.md` - Release history, version numbers, change summaries
-  - `memory-archive/` - Historical CLAUDE.md content (auto-created by /prune)
+  - `memory-archive/` - Historical AGENTS.md content (auto-created by /prune)
 
   ### Documentation Standards
   **Format Requirements**:
@@ -69,6 +68,6 @@
   - NEVER create files unless absolutely necessary
   - ALWAYS prefer editing existing files over creating new ones
   - NEVER create documentation unless working on a coding project
-  - Use claude code commit to preserve this CLAUDE.md on new machines
+  - Commit AGENTS.md to preserve AI assistant configuration on new machines
   - When coding, keep the project as modular as possible.
   - When asked to look at screenshots without a specific path, check ~/Screenshots/ directory

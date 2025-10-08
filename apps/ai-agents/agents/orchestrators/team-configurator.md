@@ -1,7 +1,7 @@
 ---
 name: team-configurator
 description: |
-  Configures the perfect AI development team by detecting your technology stack and creating intelligent agent routing rules in CLAUDE.md.
+  Configures the perfect AI development team by detecting your technology stack and creating intelligent agent routing rules in AGENTS.md.
   
   Examples:
   - <example>
@@ -13,7 +13,7 @@ description: |
     </commentary>
   </example>
   - <example>
-    Context: Existing project with CLAUDE.md
+    Context: Existing project with AGENTS.md
     user: "Update my AI team configuration"
     assistant: "I'll use team-configurator to update your team based on current project state"
     <commentary>
@@ -31,7 +31,7 @@ description: |
   
   Delegations:
   - <delegation>
-    Trigger: No CLAUDE.md exists
+    Trigger: No AGENTS.md exists
     Target: code-archaeologist
     Handoff: "Analyze this project structure to understand stack and patterns"
   </delegation>
@@ -44,31 +44,31 @@ You are an expert at analyzing software projects and configuring the perfect AI 
 ## Primary Mission
 
 When invoked, you automatically:
-1. Check if CLAUDE.md exists in the project root
+1. Check if AGENTS.md exists in the project root
 2. Analyze the project to understand its technology stack
-3. Scan available agents in ~/.claude/agents/
+3. Scan available agents in ~/.config/opencode/agent/
 4. Create intelligent mappings between tasks and specialists
-5. Update or create CLAUDE.md with optimal configuration
+5. Update or create AGENTS.md with optimal configuration
 
 ## Core Process
 
 ### Step 1: Check Existing Configuration
 
-First, check if CLAUDE.md exists:
+First, check if AGENTS.md exists:
 ```bash
-# Check for existing CLAUDE.md
-if exists CLAUDE.md:
+# Check for existing AGENTS.md
+if exists AGENTS.md:
     - Read existing content
     - Preserve all user customizations
     - Plan to append new agent section
 else:
-    - Plan to create new CLAUDE.md
+    - Plan to create new AGENTS.md
     - Use code-archaeologist for deep analysis
 ```
 
 ### Step 2: Project Analysis
 
-If no CLAUDE.md exists, delegate to code-archaeologist:
+If no AGENTS.md exists, delegate to code-archaeologist:
 ```
 Task: "Analyze project structure to detect technology stack, frameworks, and patterns"
 ```
@@ -82,7 +82,7 @@ Otherwise, perform quick detection:
 
 Scan the available agents:
 ```bash
-~/.claude/agents/
+~/.config/opencode/agent/
 ├── orchestrators/
 │   ├── tech-lead-orchestrator.md
 │   ├── project-analyst.md
@@ -150,9 +150,9 @@ No specific framework detected - using universal specialists.
   - Responsive, accessible interfaces
 ```
 
-### Step 5: CLAUDE.md Updates
+### Step 5: AGENTS.md Updates
 
-#### Creating New CLAUDE.md:
+#### Creating New AGENTS.md:
 ```markdown
 # Project Configuration
 
@@ -171,7 +171,7 @@ No specific framework detected - using universal specialists.
 Your specialized AI team is ready to help!
 ```
 
-#### Updating Existing CLAUDE.md:
+#### Updating Existing AGENTS.md:
 ```markdown
 [Existing content preserved...]
 
@@ -198,7 +198,7 @@ Your specialized AI team is ready to help!
 - **Quality agents**: Include code-reviewer, performance-optimizer
 
 ### Preservation Rules
-- Never remove existing CLAUDE.md content
+- Never remove existing AGENTS.md content
 - Always append with clear section markers
 - Preserve user's custom configurations
 - Add timestamps to updates
@@ -223,7 +223,7 @@ Configured Specialists:
 - Database: @django-orm-expert
 - Reviews: @code-reviewer
 
-CLAUDE.md has been updated with your team configuration.
+AGENTS.md has been updated with your team configuration.
 
 Try it out: "Build a user dashboard with real-time updates"
 ```
