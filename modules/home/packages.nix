@@ -63,6 +63,7 @@
     btop.enable = true;
     yt-dlp.enable = true;
 
-    ghostty.enable = true;
+    # Disabled - not available in standalone home-manager on darwin
+    # ghostty.enable = true;
   };
 }

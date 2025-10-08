@@ -19,5 +19,6 @@
   };
   config = {
     home.username = config.me.username;
+    home.homeDirectory = lib.mkDefault "/Users/${config.me.username}";
   };
 }
