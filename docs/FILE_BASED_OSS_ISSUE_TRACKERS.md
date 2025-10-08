@@ -23,7 +23,8 @@ You specifically requested **OSS (open-source) and file-based** solutions. This 
 
 | Tool | Language | Activity | Agent-Friendly | Complexity | Recommendation |
 |------|----------|----------|----------------|------------|----------------|
-| **git-bug** | Go | ⭐⭐⭐⭐⭐ Active | ⭐⭐⭐⭐⭐ Excellent | Medium | **✅ TOP CHOICE** |
+| **git-bug** | Go | ⭐⭐⭐⭐⭐ Active | ⭐⭐⭐⭐⭐ Excellent | Medium | **✅ ISSUE TRACKING** |
+| **git-appraise** | Go | ⭐⭐⭐ Moderate | ⭐⭐⭐⭐⭐ Excellent | Medium | **✅ CODE REVIEW** |
 | **tissue** | Scheme | ⭐⭐⭐ Moderate | ⭐⭐⭐⭐ Good | High | ✅ If Scheme-friendly |
 | **bug** (driusan) | Go | ⭐⭐⭐ Moderate | ⭐⭐⭐⭐ Good | Low | ✅ Simplest option |
 | **issue** (marekjm) | Python | ⭐⭐ Low | ⭐⭐⭐ Fair | Low | ⚠️ Less active |
@@ -117,7 +118,200 @@ git config --local bug.user.email "$AGENT_NAME@agents.local"
 
 ---
 
-### 2. tissue ⭐⭐⭐⭐
+### 2. git-appraise ⭐⭐⭐⭐⭐ (RECOMMENDED FOR CODE REVIEW)
+
+**Repository**: https://github.com/google/git-appraise  
+**Stars**: 5.3k | **Language**: Go | **License**: Apache-2.0 | **By**: Google
+
+#### Why This is Perfect for PR-Like Workflows
+
+**Philosophy**:
+- **Distributed code review system** - like GitHub PRs but stored in git
+- Reviews stored as git-notes in `refs/notes/devtools/` namespace
+- Each review annotates commits with structured JSON metadata
+- **Complements git-bug** - use git-bug for issues, git-appraise for PRs
+
+**Key Difference from git-bug**:
+- git-bug = Issue tracking (bugs, features, tasks)
+- git-appraise = Code review (PR workflow, review comments, approvals)
+
+**Storage Strategy**:
+```
+.git/
+  refs/
+    notes/
+      devtools/
+        reviews   # Code review requests
+        discuss   # Human review comments
+        ci        # CI/CD build results
+        analyses  # Static analysis (robot comments)
+```
+
+**Commands**:
+```bash
+# Request code review
+git appraise request
+
+# List pending reviews
+git appraise list
+
+# Show review with comments
+git appraise show
+
+# Comment on code
+git appraise comment -m "LGTM" -f file.go -l 42
+
+# Accept changes
+git appraise accept -m "Approved"
+
+# Submit (merge) after approval
+git appraise submit --merge
+
+# Push/pull reviews
+git appraise push
+git appraise pull
+```
+
+**Agent Workflow for Code Review**:
+```bash
+# Engineer agent creates PR
+git config user.name "engineer-agent"
+git appraise request -m "Fix memory leak in buffer pool"
+
+# Code-reviewer agent reviews
+git config user.name "code-reviewer-agent"
+git appraise comment -m "Memory management looks good" -f buffer.go -l 123
+git appraise comment -m "Consider adding null check" -f buffer.go -l 156
+
+# Code-architect agent architectural review
+git config user.name "code-architect-agent"  
+git appraise comment -m "Design follows RAII pattern correctly"
+
+# Security agent reviews
+git config user.name "security-agent"
+git appraise accept -m "No security issues detected"
+
+# Engineer agent submits after approval
+git config user.name "engineer-agent"
+git appraise submit --merge
+```
+
+**Pro**:
+- ✅ **Perfect for PR workflows** - designed for code review
+- ✅ **Google-backed** - used internally at Google
+- ✅ **5.3k stars** - production-ready
+- ✅ **Multi-agent friendly** - each reviewer is a git user
+- ✅ **File-level comments** - comment on specific lines
+- ✅ **CI integration** - track build/test results
+- ✅ **Robot comments** - static analysis results
+- ✅ **Web UI available** - [git-appraise-web](https://github.com/google/git-appraise-web)
+- ✅ **In nixpkgs** - `pkgs.git-appraise`
+- ✅ **Complements git-bug** - use both together
+
+**Con**:
+- ⚠️ Less active than git-bug (last release 2021)
+- ⚠️ Requires separate web UI repo
+- ⚠️ JSON format (not markdown)
+- ⚠️ Learning curve for git-notes workflow
+
+**Use Case**:
+```
+git-bug       → Track issues, bugs, features
+git-appraise  → Review code changes, PRs, approvals
+Together      → Complete development workflow
+```
+
+**Example Combined Workflow**:
+```bash
+# 1. Create issue (git-bug)
+git bug add "Memory leak in buffer pool" -m "Detected via profiling"
+ISSUE_ID=$(git bug ls | head -1 | awk '{print $1}')
+
+# 2. Create feature branch
+git checkout -b fix/memory-leak-$ISSUE_ID
+
+# 3. Make changes
+vim buffer.go
+git commit -m "Fix memory leak
+
+Closes: $ISSUE_ID"
+
+# 4. Request review (git-appraise)
+git appraise request -m "Fixes issue $ISSUE_ID"
+
+# 5. Code review happens
+# ... multiple agents review and comment ...
+
+# 6. Submit after approval
+git appraise submit --merge
+
+# 7. Close issue (git-bug)
+git bug close $ISSUE_ID
+```
+
+**Nix Setup**:
+```nix
+# modules/home/packages.nix
+home.packages = with pkgs; [
+  git-bug       # Issue tracking
+  git-appraise  # Code review
+];
+
+# Agent script for combined workflow
+# scripts/agent-pr-workflow.sh
+#!/usr/bin/env bash
+AGENT=$1
+ACTION=$2
+
+case "$ACTION" in
+  "create-issue")
+    git config bug.user.name "$AGENT"
+    git bug add "$3" -m "$4"
+    ;;
+  "request-review")
+    git config user.name "$AGENT"
+    git appraise request -m "$3"
+    ;;
+  "review")
+    git config user.name "$AGENT"
+    git appraise comment -m "$3"
+    ;;
+  "approve")
+    git config user.name "$AGENT"
+    git appraise accept -m "$3"
+    ;;
+esac
+```
+
+**Integration with AI Agents**:
+
+The combination of git-bug + git-appraise provides:
+1. **Issue tracking** - bugs, features, tasks (git-bug)
+2. **Code review** - PR workflow, approvals (git-appraise)
+3. **Identity separation** - each agent has distinct identity in both
+4. **Offline-first** - both work fully offline
+5. **Distributed** - push/pull to share with team
+
+**Mirrors/Integrations**:
+- [GitHub PR Mirror](https://github.com/google/git-pull-request-mirror) - Sync with GitHub PRs
+- [Phabricator Mirror](https://github.com/google/git-phabricator-mirror) - Sync with Phabricator
+- [Jenkins Plugin](https://github.com/jenkinsci/google-git-notes-publisher-plugin) - CI integration
+
+**Schema Documentation**:
+- Request: `refs/notes/devtools/reviews` - Review requests
+- Comments: `refs/notes/devtools/discuss` - Human review comments
+- CI Status: `refs/notes/devtools/ci` - Build/test results
+- Analysis: `refs/notes/devtools/analyses` - Static analysis results
+
+**Agent Suitability**: ⭐⭐⭐⭐⭐
+- Perfect for multi-agent code review workflows
+- Each agent can review, comment, approve independently
+- Full audit trail of who reviewed what
+- Works alongside git-bug for complete workflow
+
+---
+
+### 3. tissue ⭐⭐⭐⭐
 
 **Website**: https://tissue.systemreboot.net/  
 **Language**: Guile Scheme | **License**: GPL-3+
@@ -185,7 +379,7 @@ See commit abc123 for initial analysis
 
 ---
 
-### 3. bug (by driusan) ⭐⭐⭐⭐
+### 4. bug (by driusan) ⭐⭐⭐⭐
 
 **Repository**: https://github.com/driusan/bug  
 **Stars**: 210 | **Language**: Go | **License**: GPL-3.0
@@ -274,7 +468,7 @@ echo "Comment added by $AGENT_NAME to issue $ISSUE_ID"
 
 ---
 
-### 4. issue (by marekjm) ⭐⭐⭐
+### 5. issue (by marekjm) ⭐⭐⭐
 
 **Repository**: https://github.com/marekjm/issue  
 **Stars**: 72 | **Language**: Python 3 | **License**: GPL-3.0
@@ -341,7 +535,7 @@ git checkout -b $(issue slug <id>)
 
 ---
 
-### 5. Fossil SCM ⭐⭐⭐⭐⭐
+### 6. Fossil SCM ⭐⭐⭐⭐⭐
 
 **Website**: https://fossil-scm.org/  
 **Language**: C | **License**: BSD-2-Clause
@@ -379,7 +573,7 @@ git checkout -b $(issue slug <id>)
 
 ---
 
-### 6. Archived/Unmaintained Options
+### 7. Archived/Unmaintained Options
 
 #### ditz (Ruby)
 - **Status**: ❌ Unmaintained since 2011
@@ -399,9 +593,23 @@ git checkout -b $(issue slug <id>)
 
 ## Recommendations by Use Case
 
-### For Your AI Agent System: git-bug
+### For Your AI Agent System: git-bug + git-appraise (DUAL SETUP)
 
-**Reasoning**:
+**Recommended Architecture**:
+```
+git-bug       → Issue/bug/feature tracking
+git-appraise  → Code review (PR workflow)
+Both together → Complete development lifecycle
+```
+
+**Why Use Both**:
+1. **Separation of concerns**: Issues ≠ Code Reviews
+2. **Different workflows**: Issues are long-lived, PRs are transient
+3. **Both agent-friendly**: Each tool supports multi-agent identities
+4. **Complementary**: git-bug tracks *what*, git-appraise tracks *how*
+5. **Both in nixpkgs**: Easy to install and maintain
+
+**Reasoning for git-bug**:
 1. **Best identity support**: Each agent can be a distinct git user
 2. **Most active**: 2025 releases, 9.5k stars, growing community
 3. **Production-ready**: Used in real projects
@@ -409,42 +617,119 @@ git checkout -b $(issue slug <id>)
 5. **Nix-friendly**: Package exists, works with flakes
 6. **Future-proof**: Active development, bridge support
 
+**Reasoning for git-appraise**:
+1. **PR-focused**: Designed specifically for code review workflow
+2. **Google-proven**: Used at Google scale
+3. **File-level comments**: Review specific lines of code
+4. **CI integration**: Track build/test results
+5. **Complements git-bug**: Different use case, same philosophy
+
 **Implementation Path**:
 ```bash
-# 1. Install
-nix profile install nixpkgs#git-bug
+# 1. Install both tools
+nix profile install nixpkgs#git-bug nixpkgs#git-appraise
 
 # 2. Initialize in a project
 cd ~/my-project
 git bug init
+# git-appraise doesn't need init, uses git-notes automatically
 
 # 3. Configure agent identities (per clone or branch)
-# Engineer agent
+# For git-bug
 git config --local bug.user.name "engineer-agent"
 git config --local bug.user.email "engineer@agents.local"
 
-# 4. Agent workflow script
-cat > ~/.local/bin/agent-issue << 'EOF'
-#!/usr/bin/env bash
-# Usage: agent-issue <agent-name> <command> [args...]
-AGENT=$1; shift
-ORIGINAL_NAME=$(git config bug.user.name)
-ORIGINAL_EMAIL=$(git config bug.user.email)
+# For git-appraise (uses standard git config)
+git config --local user.name "engineer-agent"
+git config --local user.email "engineer@agents.local"
 
+# 4. Combined agent workflow script
+cat > ~/.local/bin/agent-workflow << 'EOF'
+#!/usr/bin/env bash
+# Usage: agent-workflow <agent-name> <tool> <command> [args...]
+AGENT=$1; shift
+TOOL=$1; shift
+
+# Save original identities
+ORIG_BUG_NAME=$(git config bug.user.name)
+ORIG_BUG_EMAIL=$(git config bug.user.email)
+ORIG_GIT_NAME=$(git config user.name)
+ORIG_GIT_EMAIL=$(git config user.email)
+
+# Set agent identities
 git config bug.user.name "$AGENT"
 git config bug.user.email "$AGENT@agents.local"
+git config user.name "$AGENT"
+git config user.email "$AGENT@agents.local"
 
-git bug "$@"
+# Run command
+case "$TOOL" in
+  bug|issue)
+    git bug "$@"
+    ;;
+  appraise|review|pr)
+    git appraise "$@"
+    ;;
+  *)
+    echo "Unknown tool: $TOOL (use 'bug' or 'appraise')"
+    exit 1
+    ;;
+esac
 
-git config bug.user.name "$ORIGINAL_NAME"
-git config bug.user.email "$ORIGINAL_EMAIL"
+# Restore original identities
+git config bug.user.name "$ORIG_BUG_NAME"
+git config bug.user.email "$ORIG_BUG_EMAIL"
+git config user.name "$ORIG_GIT_NAME"
+git config user.email "$ORIG_GIT_EMAIL"
 EOF
-chmod +x ~/.local/bin/agent-issue
+chmod +x ~/.local/bin/agent-workflow
 
-# 5. Usage
-agent-issue engineer add "Memory leak detected"
-agent-issue reviewer comment <id> "Confirmed, see commit abc123"
-agent-issue code-architect label <id> architecture
+# 5. Usage examples
+# Issue tracking
+agent-workflow engineer bug add "Memory leak detected"
+agent-workflow reviewer bug comment <id> "Confirmed"
+agent-workflow code-architect bug label <id> architecture
+
+# Code review
+agent-workflow engineer appraise request -m "Fix memory leak"
+agent-workflow reviewer appraise comment -m "LGTM" -f buffer.go -l 42
+agent-workflow security appraise accept -m "No security issues"
+```
+
+**Example Complete Workflow**:
+```bash
+# 1. Engineer creates issue
+agent-workflow engineer-agent bug add "Memory leak in buffer pool"
+
+# 2. Engineer creates fix branch
+git checkout -b fix/memory-leak-abc123
+
+# 3. Engineer makes changes
+vim buffer.go
+git commit -m "Fix memory leak in buffer pool"
+
+# 4. Engineer requests review
+agent-workflow engineer-agent appraise request -m "Fixes memory leak issue"
+
+# 5. Reviewer reviews code
+agent-workflow code-reviewer-agent appraise comment \
+  -m "Memory management looks correct" \
+  -f buffer.go -l 156
+
+# 6. Architect reviews design
+agent-workflow code-architect-agent appraise comment \
+  -m "Follows RAII pattern correctly"
+
+# 7. Security reviews
+agent-workflow security-agent appraise accept \
+  -m "No security vulnerabilities detected"
+
+# 8. Engineer merges
+agent-workflow engineer-agent appraise submit --merge
+
+# 9. Close original issue
+agent-workflow engineer-agent bug close abc123 \
+  -m "Fixed in commit def456"
 ```
 
 ---
@@ -620,103 +905,201 @@ git bug bridge rm github
 
 ## Decision Matrix
 
-| Requirement | git-bug | bug | tissue | issue |
-|-------------|---------|-----|--------|-------|
-| **Multi-agent identities** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
-| **File-based storage** | ⭐⭐ (git objects) | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ (JSON) |
-| **Offline-first** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **Active development** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
-| **Nix integration** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ |
-| **Learning curve** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ |
-| **Feature richness** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
-| **Web UI** | ⭐⭐⭐⭐⭐ | ❌ | ⭐⭐⭐⭐ | ❌ |
-| **Automation-friendly** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+| Requirement | git-bug | git-appraise | bug | tissue | issue |
+|-------------|---------|--------------|-----|--------|-------|
+| **Use Case** | Issues | Code Review | Issues | Issues | Issues |
+| **Multi-agent identities** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
+| **File-based storage** | ⭐⭐ (git objects) | ⭐⭐ (git-notes) | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ (JSON) |
+| **Offline-first** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Active development** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
+| **Nix integration** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ |
+| **Learning curve** | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ |
+| **Feature richness** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
+| **Web UI** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ (separate) | ❌ | ⭐⭐⭐⭐ | ❌ |
+| **Automation-friendly** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Code-level comments** | ❌ | ⭐⭐⭐⭐⭐ | ❌ | ❌ | ❌ |
+| **PR workflow** | ❌ | ⭐⭐⭐⭐⭐ | ❌ | ❌ | ❌ |
 
 ---
 
 ## Final Recommendation
 
-### For Your Use Case: **git-bug** 🏆
+### For Your Use Case: **git-bug + git-appraise** 🏆
+
+**The Winning Combination**:
+```
+git-bug (9.5k ⭐)     → Issue tracking, bugs, features
+git-appraise (5.3k ⭐) → Code review, PR workflow
+```
 
 **Install Now**:
 ```bash
 # Add to modules/home/packages.nix
-home.packages = with pkgs; [ git-bug ];
+home.packages = with pkgs; [ 
+  git-bug
+  git-appraise
+];
 
 # Initialize in a test repo
 cd ~/test-project
-git bug init
 
-# Set agent identity
+# Setup git-bug
+git bug init
 git config bug.user.name "engineer-agent"
 git config bug.user.email "engineer@agents.local"
 
-# Create first issue
+# git-appraise works immediately (uses git-notes)
+git config user.name "engineer-agent"
+git config user.email "engineer@agents.local"
+
+# Create test issue
 git bug add "Test issue from agent" -m "Testing multi-agent workflow"
 
-# Check web UI
+# Create test review
+git appraise request -m "Test code review"
+
+# Check git-bug web UI
 git bug webui
 # Opens http://localhost:8080
 ```
 
-**Why This Wins**:
+**Why This Combo Wins**:
+
+**git-bug (Issues)**:
 1. ✅ Best multi-agent identity support (each agent = git user)
-2. ✅ Active project with long-term viability
+2. ✅ Most active project (2025 releases, 9.5k stars)
 3. ✅ Rich features (web UI, labels, milestones, search)
-4. ✅ Already in nixpkgs
-5. ✅ GraphQL API for advanced automation
-6. ✅ Can bridge to GitHub if you change your mind later
-7. ✅ Professional-grade tool used in production
+4. ✅ GraphQL API for advanced automation
+5. ✅ Can bridge to GitHub if needed
+
+**git-appraise (Code Review)**:
+1. ✅ Perfect PR workflow (designed for code review)
+2. ✅ File-level comments (review specific lines)
+3. ✅ Google-proven (used at scale)
+4. ✅ CI integration support
+5. ✅ Complements git-bug perfectly
+
+**Together**:
+1. ✅ Complete development lifecycle
+2. ✅ Both in nixpkgs (easy installation)
+3. ✅ Both agent-friendly (distinct identities)
+4. ✅ Both offline-first
+5. ✅ Separates concerns (issues ≠ reviews)
+
+**Use Cases**:
+- **Issues only**: Use git-bug alone
+- **Code review only**: Use git-appraise alone
+- **Full workflow**: Use both together (recommended)
 
 **Alternative If**:
 - **You want ultra-simple**: Use **bug** (driusan) for plaintext files
 - **You're in Scheme ecosystem**: Use **tissue** for gemtext elegance
-- **You need gradual adoption**: Start with **bug**, migrate to **git-bug** later
+- **You need gradual adoption**: Start with **bug**, add git-bug/git-appraise later
+- **You only need issues**: git-bug alone is perfect
+- **You only need code review**: git-appraise alone is perfect
 
 ---
 
 ## Quick Start Guide
 
-### Setup git-bug in nix-config
+### Setup git-bug + git-appraise in nix-config
 
 ```nix
 # 1. Add to modules/home/packages.nix
 { pkgs, ... }: {
   home.packages = with pkgs; [
     git-bug
+    git-appraise
   ];
 }
 
-# 2. Create agent identity helper
-# scripts/setup-git-bug-agent.sh
+# 2. Create combined agent identity helper
+# scripts/setup-agent-identity.sh
 #!/usr/bin/env bash
 AGENT_NAME="${1:-engineer-agent}"
 REPO_DIR="${2:-.}"
+TOOL="${3:-both}"  # both, bug, appraise
 
 cd "$REPO_DIR"
 
-# Initialize if needed
-if [ ! -d ".git/refs/bugs" ]; then
-  git bug init
+# Initialize git-bug if needed
+if [ "$TOOL" = "bug" ] || [ "$TOOL" = "both" ]; then
+  if [ ! -d ".git/refs/bugs" ]; then
+    git bug init
+  fi
+  git config --local bug.user.name "$AGENT_NAME"
+  git config --local bug.user.email "$AGENT_NAME@agents.local"
+  echo "✓ git-bug configured with identity: $AGENT_NAME"
 fi
 
-# Set agent identity for this repo
-git config --local bug.user.name "$AGENT_NAME"
-git config --local bug.user.email "$AGENT_NAME@agents.local"
+# Configure git-appraise (uses standard git config)
+if [ "$TOOL" = "appraise" ] || [ "$TOOL" = "both" ]; then
+  git config --local user.name "$AGENT_NAME"
+  git config --local user.email "$AGENT_NAME@agents.local"
+  echo "✓ git-appraise configured with identity: $AGENT_NAME"
+fi
 
-echo "✓ git-bug initialized with identity: $AGENT_NAME"
+# 3. Create agent workflow wrapper
+# scripts/agent-dev.sh
+#!/usr/bin/env bash
+# Usage: agent-dev <agent> <tool> <action> [args...]
+# Examples:
+#   agent-dev engineer bug add "Fix memory leak"
+#   agent-dev reviewer appraise comment -m "LGTM"
 
-# 3. Add to PATH
+AGENT=$1; shift
+TOOL=$1; shift
+
+# Save current identity
+PREV_BUG_NAME=$(git config bug.user.name 2>/dev/null)
+PREV_BUG_EMAIL=$(git config bug.user.email 2>/dev/null)
+PREV_GIT_NAME=$(git config user.name 2>/dev/null)
+PREV_GIT_EMAIL=$(git config user.email 2>/dev/null)
+
+# Trap to restore on exit
+cleanup() {
+  [ -n "$PREV_BUG_NAME" ] && git config bug.user.name "$PREV_BUG_NAME"
+  [ -n "$PREV_BUG_EMAIL" ] && git config bug.user.email "$PREV_BUG_EMAIL"
+  [ -n "$PREV_GIT_NAME" ] && git config user.name "$PREV_GIT_NAME"
+  [ -n "$PREV_GIT_EMAIL" ] && git config user.email "$PREV_GIT_EMAIL"
+}
+trap cleanup EXIT
+
+# Set agent identity
+git config bug.user.name "$AGENT"
+git config bug.user.email "$AGENT@agents.local"
+git config user.name "$AGENT"
+git config user.email "$AGENT@agents.local"
+
+# Execute command
+case "$TOOL" in
+  bug) git bug "$@" ;;
+  appraise) git appraise "$@" ;;
+  *) echo "Unknown tool: $TOOL"; exit 1 ;;
+esac
+
+# 4. Add to PATH
 # modules/home/shell.nix
 programs.bash.shellAliases = {
-  "agent-bug" = "~/scripts/setup-git-bug-agent.sh";
+  "agent-setup" = "~/scripts/setup-agent-identity.sh";
+  "agent-dev" = "~/scripts/agent-dev.sh";
 };
 
-# 4. Usage
-$ agent-bug engineer-agent ~/my-project
+# 5. Usage examples
+$ agent-setup engineer-agent ~/my-project
 $ cd ~/my-project
-$ git bug add "First issue"
-$ git bug webui
+
+# Issue tracking
+$ agent-dev engineer bug add "First issue"
+$ agent-dev reviewer bug comment abc123 "Confirmed"
+
+# Code review
+$ agent-dev engineer appraise request -m "Please review"
+$ agent-dev reviewer appraise comment -m "LGTM"
+$ agent-dev reviewer appraise accept
+
+# View in browser
+$ git bug webui  # http://localhost:8080
 ```
 
 ---
@@ -724,20 +1107,29 @@ $ git bug webui
 ## Resources
 
 **git-bug**:
-- Repo: https://github.com/git-bug/git-bug
+- Repo: https://github.com/git-bug/git-bug (9.5k ⭐)
 - Docs: https://github.com/git-bug/git-bug/tree/trunk/doc
 - Matrix: https://matrix.to/#/#git-bug:matrix.org
+- Nix: `pkgs.git-bug`
+
+**git-appraise**:
+- Repo: https://github.com/google/git-appraise (5.3k ⭐)
+- Web UI: https://github.com/google/git-appraise-web
+- Docs: https://github.com/google/git-appraise/tree/master/docs
+- Nix: `pkgs.git-appraise`
 
 **bug (driusan)**:
-- Repo: https://github.com/driusan/bug
+- Repo: https://github.com/driusan/bug (210 ⭐)
 - Format spec: https://github.com/driusan/PoormanIssueTracker
+- Nix: `pkgs.bug`
 
 **tissue**:
 - Website: https://tissue.systemreboot.net/
 - Repo: https://git.systemreboot.net/tissue/
+- Manual: https://tissue.systemreboot.net/manual/dev/en/
 
 **issue (marekjm)**:
-- Repo: https://github.com/marekjm/issue
+- Repo: https://github.com/marekjm/issue (72 ⭐)
 
 ---
 
