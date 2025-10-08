@@ -40,5 +40,8 @@
     inputs.nixos-unified.lib.mkFlake {
       inherit inputs;
       root = ./.;
+    }
+    // {
+      inputPaths = builtins.mapAttrs (n: v: v.outPath) inputs;
     };
 }
