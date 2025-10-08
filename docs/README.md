@@ -49,13 +49,6 @@ or resolving confusion about which agent to use.
 
 ### Configuration & Infrastructure
 
-**[AGENT_CONFIG_INCONSISTENCIES.md](./AGENT_CONFIG_INCONSISTENCIES.md)**  
-Analysis of inconsistencies in agent configuration files.
-
-**Use this when:** Debugging agent behavior or standardizing agent configurations.
-
----
-
 **[GITHUB_AGENT_IDENTITY_OPTIONS.md](./GITHUB_AGENT_IDENTITY_OPTIONS.md)**  
 Research on how to handle agent identity when interacting with GitHub.
 
