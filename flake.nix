@@ -4,9 +4,9 @@
   inputs = {
     # Principle inputs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
+
     flake-parts.url = "github:hercules-ci/flake-parts";
-    
+
     # System management
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -16,11 +16,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     # flake-parts modules for system/home configuration
     # Docs: https://flake.parts/options/easy-hosts.html
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
-    
+
     # Software inputs
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -47,7 +47,8 @@
     };
   };
 
-  outputs = inputs@{ self, flake-parts, ... }:
+  outputs =
+    inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       # Import flake-parts modules
       # All options documented at: https://flake.parts/options/
@@ -55,18 +56,23 @@
         # Official home-manager flake-parts module
         # Docs: https://flake.parts/options/home-manager.html
         inputs.home-manager.flakeModules.home-manager
-        
+
         # easy-hosts for NixOS/Darwin configuration
         # Docs: https://flake.parts/options/easy-hosts.html
         inputs.easy-hosts.flakeModule
-        
+
         # Your custom flake modules
         ./modules/flake/devshell.nix
         ./modules/flake/treefmt.nix
       ];
 
       # Supported systems
-      systems = [ "aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux" ];
+      systems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       # ===== Darwin/NixOS Hosts Configuration =====
       # Managed by easy-hosts flake-parts module
@@ -75,31 +81,36 @@
         # Shared configuration for all hosts
         shared = {
           modules = [
-            ./modules/darwin  # Auto-imports default.nix
+            ./modules/darwin # Auto-imports default.nix
           ];
-          
+
           # Make inputs available to all modules as 'flake.inputs' and 'flake.self'
           specialArgs.flake = {
             inherit inputs;
             inherit self;
           };
         };
-        
+
         # Per-class configuration (darwin, nixos, etc)
         perClass = class: {
           modules = [
             # Add home-manager to all darwin hosts
-            (if class == "darwin" then inputs.home-manager.darwinModules.home-manager else {})
-            (if class == "darwin" then {
-              home-manager.extraSpecialArgs.flake = {
-                inherit inputs;
-                inherit self;
-              };
-            } else {})
+            (if class == "darwin" then inputs.home-manager.darwinModules.home-manager else { })
+            (
+              if class == "darwin" then
+                {
+                  home-manager.extraSpecialArgs.flake = {
+                    inherit inputs;
+                    inherit self;
+                  };
+                }
+              else
+                { }
+            )
           ];
-          specialArgs = {};
+          specialArgs = { };
         };
-        
+
         # Define individual hosts
         hosts = {
           flatbutt = {
@@ -126,17 +137,17 @@
               inputs.mcp-servers-nix.overlays.default
             ];
           };
-          
+
           extraSpecialArgs = {
             flake = {
               inherit inputs;
               inherit self;
             };
           };
-          
+
           modules = [
             inputs.sops-nix.homeManagerModules.sops
-            ./modules/home  # Auto-imports default.nix
+            ./modules/home # Auto-imports default.nix
             ./configurations/home/dazmin.nix
           ];
         };
@@ -145,8 +156,5 @@
       # Export reusable modules
       flake.darwinModules.default = ./modules/darwin;
       flake.homeModules.default = ./modules/home;
-      
-      # Preserve inputPaths for compatibility
-      flake.inputPaths = builtins.mapAttrs (n: v: v.outPath) inputs;
     };
 }

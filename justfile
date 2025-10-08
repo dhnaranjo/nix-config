@@ -26,7 +26,12 @@ check:
 dev:
   nix develop
 
-# Activate the configuration
+# Activate darwin configuration
 [group('Main')]
-run:
-  nix run
+darwin:
+  darwin-rebuild switch --flake .#flatbutt
+
+# Activate home-manager configuration  
+[group('Main')]
+home:
+  home-manager switch --flake .#dazmin
