@@ -303,6 +303,8 @@ go.mod           # Go
 
 **Additional Documentation:**
 - `docs/GITHUB_AGENT_IDENTITY_OPTIONS.md` - Research on agent identity solutions
+- `docs/ALTERNATIVE_ISSUE_TRACKING_PLATFORMS.md` - Cloud/hosted platform research
+- `docs/FILE_BASED_OSS_ISSUE_TRACKERS.md` - File-based OSS solutions (git-bug, tissue, bug)
 
 ---
 
