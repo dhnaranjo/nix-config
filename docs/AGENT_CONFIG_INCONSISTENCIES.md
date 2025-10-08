@@ -301,6 +301,9 @@ go.mod           # Go
 - `justfile` - Available commands for nix-config
 - `flake.nix` - Nix flake definition
 
+**Additional Documentation:**
+- `docs/GITHUB_AGENT_IDENTITY_OPTIONS.md` - Research on agent identity solutions
+
 ---
 
 ## Priority Matrix
