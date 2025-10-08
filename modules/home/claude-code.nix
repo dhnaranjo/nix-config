@@ -18,4 +18,20 @@
       ];
     };
   };
+
+  # Claude Code configuration files
+  home.file = {
+    # Claude command files
+    ".claude/commands" = {
+      source = ../../apps/claude-code/commands;
+      recursive = true;
+    };
+
+    ".claude/agents" = {
+      source = ../../apps/claude-code/agents;
+      recursive = true;
+    };
+
+    ".claude/CLAUDE.md".text = builtins.readFile ../../apps/claude-code/CLAUDE.md;
+  };
 }
