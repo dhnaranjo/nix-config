@@ -45,7 +45,7 @@ description: |
     Target: security-guardian
     Handoff: "Potential security issues in: [locations]. Patterns: [details]"
   </delegation>
-tools: Read, Grep, Glob, Bash, LS
+<!-- tools: Read, Grep, Glob, Bash, LS -->
 ---
 
 # Code Archaeologist

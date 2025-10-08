@@ -45,7 +45,7 @@ description: |
     Target: refactoring-expert
     Handoff: "Code needs significant refactoring: [reasons]. Recommend restructuring."
   </delegation>
-tools: Read, Grep, Glob, Bash
+<!-- tools: Read, Grep, Glob, Bash -->
 ---
 
 # Code Reviewer

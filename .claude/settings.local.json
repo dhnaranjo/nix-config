@@ -29,7 +29,9 @@
       "Bash(cat:*)",
       "Read(//private/var/folders/90/63h3bmm125z1d2s760x7n_c80000gn/T/secrets.d/2/rendered/**)",
       "WebFetch(domain:opencode.ai)",
-      "Bash(curl -s https://opencode.ai/config.json)"
+      "Bash(curl -s https://opencode.ai/config.json)",
+      "WebFetch(domain:aloshy-ai.github.io)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

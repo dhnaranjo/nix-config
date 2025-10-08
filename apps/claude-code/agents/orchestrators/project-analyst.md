@@ -20,7 +20,7 @@ description: |
     Project analysis enables framework-specific best practices
     </commentary>
   </example>
-tools: Read, Grep, Glob, LS, Bash
+<!-- tools: Read, Grep, Glob, LS, Bash -->
 ---
 
 # Project Analyst - Your Codebase Expert
