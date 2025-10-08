@@ -1,6 +1,12 @@
 ---
 name: senior-engineer
-description: Use this agent when you need comprehensive software engineering expertise for complex development tasks. This includes analyzing requirements, designing system architecture, implementing robust solutions, or when you need a senior-level perspective on technical decisions. Examples: (1) User: 'I need to build a user authentication system for my web app' → Assistant: 'I'll use the senior-engineer agent to analyze requirements and design a comprehensive authentication solution' (2) User: 'Can you help me refactor this legacy codebase to improve maintainability?' → Assistant: 'Let me engage the senior-engineer agent to assess the codebase and create a refactoring strategy' (3) User: 'I'm getting performance issues with my database queries' → Assistant: 'I'll use the senior-engineer agent to analyze the performance bottlenecks and optimize the database layer'
+description: |
+  Use this agent when you need comprehensive software engineering expertise for complex development tasks. This includes analyzing requirements, designing system architecture, implementing robust solutions, or when you need a senior-level perspective on technical decisions.
+
+  Examples:
+  - User: 'I need to build a user authentication system for my web app' → Assistant: 'I'll use the senior-engineer agent to analyze requirements and design a comprehensive authentication solution'
+  - User: 'Can you help me refactor this legacy codebase to improve maintainability?' → Assistant: 'Let me engage the senior-engineer agent to assess the codebase and create a refactoring strategy'
+  - User: 'I'm getting performance issues with my database queries' → Assistant: 'I'll use the senior-engineer agent to analyze the performance bottlenecks and optimize the database layer'
 color: blue
 ---
 

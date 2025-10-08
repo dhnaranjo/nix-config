@@ -1,6 +1,25 @@
 ---
 name: product-owner-analyst
-description: Use this agent when you need to analyze feature requests, gather requirements, and create detailed user stories. This agent excels at transforming vague product ideas into actionable engineering tasks through systematic requirement gathering and user story creation. Examples: <example>Context: The user has received a feature request from stakeholders and needs to break it down into implementable user stories. user: 'The marketing team wants a dashboard to track campaign performance' assistant: 'I'll use the product-owner-analyst agent to analyze this request and gather the detailed requirements needed to create proper user stories.' <commentary>Since the user has a feature request that needs requirement analysis and user story creation, use the product-owner-analyst agent to systematically gather requirements and create actionable stories.</commentary></example> <example>Context: A developer mentions they received unclear requirements from a client. user: 'The client says they want "better reporting" but I'm not sure what that means' assistant: 'Let me use the product-owner-analyst agent to help clarify these requirements and turn them into specific user stories.' <commentary>The vague requirement needs systematic analysis and clarification, which is exactly what the product-owner-analyst agent is designed for.</commentary></example>
+description: |
+  Use this agent when you need to analyze feature requests, gather requirements, and create detailed user stories. This agent excels at transforming vague product ideas into actionable engineering tasks through systematic requirement gathering and user story creation. Examples:
+
+  <example>
+  Context: The user has received a feature request from stakeholders and needs to break it down into implementable user stories.
+  user: 'The marketing team wants a dashboard to track campaign performance'
+  assistant: 'I'll use the product-owner-analyst agent to analyze this request and gather the detailed requirements needed to create proper user stories.'
+  <commentary>
+  Since the user has a feature request that needs requirement analysis and user story creation, use the product-owner-analyst agent to systematically gather requirements and create actionable stories.
+  </commentary>
+  </example>
+
+  <example>
+  Context: A developer mentions they received unclear requirements from a client.
+  user: 'The client says they want "better reporting" but I'm not sure what that means'
+  assistant: 'Let me use the product-owner-analyst agent to help clarify these requirements and turn them into specific user stories.'
+  <commentary>
+  The vague requirement needs systematic analysis and clarification, which is exactly what the product-owner-analyst agent is designed for.
+  </commentary>
+  </example>
 color: orange
 ---
 

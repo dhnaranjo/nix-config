@@ -1,6 +1,25 @@
 ---
 name: playwright-test-writer
-description: Use this agent when you need to create comprehensive end-to-end tests using Playwright, automate browser-based testing scenarios, test user workflows across multiple browsers, or develop UI test strategies for web applications. This agent excels at writing Playwright tests that simulate real user interactions, handle dynamic content, test cross-browser compatibility, and ensure application functionality from a user's perspective. Examples: <example>Context: The user has built a new checkout flow and needs e2e tests. user: "I've finished the checkout flow with payment integration. Can you write Playwright tests for it?" assistant: "I'll use the playwright-test-writer agent to create comprehensive end-to-end tests for your checkout flow, covering all user paths and payment scenarios." <commentary>Since the user needs browser-based e2e tests for a user-facing feature, use the Task tool to launch the playwright-test-writer agent.</commentary></example> <example>Context: The user wants to test a complex form with validation. user: "We have a multi-step registration form with complex validation rules. We need automated browser tests." assistant: "Let me use the playwright-test-writer agent to create Playwright tests that cover all form interactions, validation scenarios, and user workflows." <commentary>The user needs browser automation tests for UI interactions, so use the playwright-test-writer agent to create comprehensive Playwright tests.</commentary></example>
+description: |
+  Use this agent when you need to create comprehensive end-to-end tests using Playwright, automate browser-based testing scenarios, test user workflows across multiple browsers, or develop UI test strategies for web applications. This agent excels at writing Playwright tests that simulate real user interactions, handle dynamic content, test cross-browser compatibility, and ensure application functionality from a user's perspective. Examples:
+
+  <example>
+  Context: The user has built a new checkout flow and needs e2e tests.
+  user: "I've finished the checkout flow with payment integration. Can you write Playwright tests for it?"
+  assistant: "I'll use the playwright-test-writer agent to create comprehensive end-to-end tests for your checkout flow, covering all user paths and payment scenarios."
+  <commentary>
+  Since the user needs browser-based e2e tests for a user-facing feature, use the Task tool to launch the playwright-test-writer agent.
+  </commentary>
+  </example>
+
+  <example>
+  Context: The user wants to test a complex form with validation.
+  user: "We have a multi-step registration form with complex validation rules. We need automated browser tests."
+  assistant: "Let me use the playwright-test-writer agent to create Playwright tests that cover all form interactions, validation scenarios, and user workflows."
+  <commentary>
+  The user needs browser automation tests for UI interactions, so use the playwright-test-writer agent to create comprehensive Playwright tests.
+  </commentary>
+  </example>
 color: purple
 ---
 

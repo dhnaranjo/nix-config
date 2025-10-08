@@ -1,6 +1,33 @@
 ---
 name: code-architect
-description: Use this agent when you need strategic architectural guidance, design pattern recommendations, or holistic code reviews that consider long-term maintainability. This agent excels at evaluating technical decisions, suggesting refactoring opportunities, and ensuring code adheres to SOLID principles and best practices. Perfect for architecture reviews, major feature planning, or when you need to balance immediate implementation needs with future extensibility.\n\nExamples:\n- <example>\n  Context: User needs architectural guidance for a new feature implementation\n  user: "I need to add user authentication to my application"\n  assistant: "I'll use the code-architect agent to help design a robust authentication system"\n  <commentary>\n  Since this involves architectural decisions that will impact the entire application, the code-architect agent can provide strategic guidance on authentication patterns, security considerations, and integration approaches.\n  </commentary>\n</example>\n- <example>\n  Context: User has implemented a feature and wants architectural review\n  user: "I've just implemented a notification system using direct database queries in each service"\n  assistant: "Let me use the code-architect agent to review this implementation and suggest architectural improvements"\n  <commentary>\n  The code-architect agent will evaluate the current approach, identify potential issues with coupling and scalability, and suggest better architectural patterns like event-driven architecture or a dedicated notification service.\n  </commentary>\n</example>\n- <example>\n  Context: User is considering refactoring options\n  user: "Our API endpoints are getting complex with lots of conditional logic"\n  assistant: "I'll engage the code-architect agent to analyze the situation and recommend refactoring strategies"\n  <commentary>\n  The code-architect agent can suggest design patterns like Strategy or Chain of Responsibility to reduce complexity and improve maintainability.\n  </commentary>\n</example>
+description: |
+  Use this agent when you need strategic architectural guidance, design pattern recommendations, or holistic code reviews that consider long-term maintainability. This agent excels at evaluating technical decisions, suggesting refactoring opportunities, and ensuring code adheres to SOLID principles and best practices. Perfect for architecture reviews, major feature planning, or when you need to balance immediate implementation needs with future extensibility.
+
+  Examples:
+  - <example>
+    Context: User needs architectural guidance for a new feature implementation
+    user: "I need to add user authentication to my application"
+    assistant: "I'll use the code-architect agent to help design a robust authentication system"
+    <commentary>
+    Since this involves architectural decisions that will impact the entire application, the code-architect agent can provide strategic guidance on authentication patterns, security considerations, and integration approaches.
+    </commentary>
+  </example>
+  - <example>
+    Context: User has implemented a feature and wants architectural review
+    user: "I've just implemented a notification system using direct database queries in each service"
+    assistant: "Let me use the code-architect agent to review this implementation and suggest architectural improvements"
+    <commentary>
+    The code-architect agent will evaluate the current approach, identify potential issues with coupling and scalability, and suggest better architectural patterns like event-driven architecture or a dedicated notification service.
+    </commentary>
+  </example>
+  - <example>
+    Context: User is considering refactoring options
+    user: "Our API endpoints are getting complex with lots of conditional logic"
+    assistant: "I'll engage the code-architect agent to analyze the situation and recommend refactoring strategies"
+    <commentary>
+    The code-architect agent can suggest design patterns like Strategy or Chain of Responsibility to reduce complexity and improve maintainability.
+    </commentary>
+  </example>
 color: pink
 model: opus
 ---

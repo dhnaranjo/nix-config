@@ -1,6 +1,25 @@
 ---
 name: playwright-analyzer
-description: Use this agent when you need to analyze Playwright test execution results, diagnose test failures, identify flaky tests, generate comprehensive test reports, or evaluate test suite health and coverage. This agent excels at running Playwright tests, parsing test output, categorizing failures by type and priority, tracking browser-specific issues, and providing actionable insights for test fixes. Examples: <example>Context: The user needs to understand why their Playwright tests are failing. user: "Our e2e tests are failing in CI but passing locally. Can you help diagnose?" assistant: "I'll use the playwright-analyzer agent to run your tests, analyze the failures, and identify the root causes including any environment-specific or timing issues." <commentary>Since the user needs test failure analysis and diagnosis, use the Task tool to launch the playwright-analyzer agent.</commentary></example> <example>Context: The user wants a comprehensive test health report. user: "Can you analyze our Playwright test suite and tell me which tests are flaky and which browsers have the most failures?" assistant: "Let me use the playwright-analyzer agent to run your test suite across all browsers and create a detailed analysis of test stability, browser-specific issues, and flakiness patterns." <commentary>The user needs test suite analysis and health metrics, so use the playwright-analyzer agent to run and analyze the tests comprehensively.</commentary></example>
+description: |
+  Use this agent when you need to analyze Playwright test execution results, diagnose test failures, identify flaky tests, generate comprehensive test reports, or evaluate test suite health and coverage. This agent excels at running Playwright tests, parsing test output, categorizing failures by type and priority, tracking browser-specific issues, and providing actionable insights for test fixes. Examples:
+
+  <example>
+  Context: The user needs to understand why their Playwright tests are failing.
+  user: "Our e2e tests are failing in CI but passing locally. Can you help diagnose?"
+  assistant: "I'll use the playwright-analyzer agent to run your tests, analyze the failures, and identify the root causes including any environment-specific or timing issues."
+  <commentary>
+  Since the user needs test failure analysis and diagnosis, use the Task tool to launch the playwright-analyzer agent.
+  </commentary>
+  </example>
+
+  <example>
+  Context: The user wants a comprehensive test health report.
+  user: "Can you analyze our Playwright test suite and tell me which tests are flaky and which browsers have the most failures?"
+  assistant: "Let me use the playwright-analyzer agent to run your test suite across all browsers and create a detailed analysis of test stability, browser-specific issues, and flakiness patterns."
+  <commentary>
+  The user needs test suite analysis and health metrics, so use the playwright-analyzer agent to run and analyze the tests comprehensively.
+  </commentary>
+  </example>
 color: blue
 ---
 

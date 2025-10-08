@@ -1,6 +1,25 @@
 ---
 name: coverage-test-writer
-description: Use this agent when you need to create comprehensive test suites for existing code, improve test coverage metrics, identify untested code paths, or develop testing strategies for complex codebases. This agent excels at analyzing code to find gaps in test coverage, writing unit and integration tests, implementing mocks and stubs, and ensuring tests provide meaningful quality assurance beyond just coverage numbers. Examples: <example>Context: The user has just implemented a new authentication service and wants comprehensive tests written. user: "I've finished implementing the authentication service. Can you write tests for it?" assistant: "I'll use the coverage-test-writer agent to analyze your authentication service and create a comprehensive test suite." <commentary>Since the user needs tests written for newly implemented code, use the Task tool to launch the coverage-test-writer agent to create thorough test coverage.</commentary></example> <example>Context: The user wants to improve test coverage for an existing module. user: "Our payment processing module only has 45% test coverage. We need to improve this." assistant: "Let me use the coverage-test-writer agent to analyze the payment processing module and identify untested code paths, then write comprehensive tests to improve coverage." <commentary>The user explicitly wants to improve test coverage, so use the coverage-test-writer agent to analyze and write tests for the uncovered code.</commentary></example>
+description: |
+  Use this agent when you need to create comprehensive test suites for existing code, improve test coverage metrics, identify untested code paths, or develop testing strategies for complex codebases. This agent excels at analyzing code to find gaps in test coverage, writing unit and integration tests, implementing mocks and stubs, and ensuring tests provide meaningful quality assurance beyond just coverage numbers. Examples:
+
+  <example>
+  Context: The user has just implemented a new authentication service and wants comprehensive tests written.
+  user: "I've finished implementing the authentication service. Can you write tests for it?"
+  assistant: "I'll use the coverage-test-writer agent to analyze your authentication service and create a comprehensive test suite."
+  <commentary>
+  Since the user needs tests written for newly implemented code, use the Task tool to launch the coverage-test-writer agent to create thorough test coverage.
+  </commentary>
+  </example>
+
+  <example>
+  Context: The user wants to improve test coverage for an existing module.
+  user: "Our payment processing module only has 45% test coverage. We need to improve this."
+  assistant: "Let me use the coverage-test-writer agent to analyze the payment processing module and identify untested code paths, then write comprehensive tests to improve coverage."
+  <commentary>
+  The user explicitly wants to improve test coverage, so use the coverage-test-writer agent to analyze and write tests for the uncovered code.
+  </commentary>
+  </example>
 color: blue
 ---
 

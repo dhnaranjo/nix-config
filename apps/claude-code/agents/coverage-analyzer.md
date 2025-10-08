@@ -1,6 +1,34 @@
 ---
 name: coverage-analyzer
-description: Use this agent when you need to run code coverage tools, analyze coverage reports, or get insights about test coverage gaps in your codebase. This agent excels at executing coverage commands, interpreting results, and providing actionable recommendations for improving test coverage. Examples:\n\n<example>\nContext: The user wants to check test coverage after writing new code or tests.\nuser: "Can you run the coverage report and tell me what needs testing?"\nassistant: "I'll use the coverage-analyzer agent to run the coverage tools and analyze the results."\n<commentary>\nSince the user is asking about code coverage analysis, use the Task tool to launch the coverage-analyzer agent to run coverage tools and provide insights.\n</commentary>\n</example>\n\n<example>\nContext: The user has just written a new feature and wants to ensure adequate test coverage.\nuser: "I've finished implementing the user authentication module. What's the coverage looking like?"\nassistant: "Let me use the coverage-analyzer agent to check the test coverage for your authentication module."\n<commentary>\nThe user wants coverage analysis for newly written code, so use the coverage-analyzer agent to run coverage tools and identify gaps.\n</commentary>\n</example>\n\n<example>\nContext: The user receives a coverage report but needs help understanding it.\nuser: "I have this coverage report showing 65% coverage, but I'm not sure what to prioritize."\nassistant: "I'll use the coverage-analyzer agent to analyze your coverage report and provide prioritized recommendations."\n<commentary>\nThe user needs help interpreting coverage data, so use the coverage-analyzer agent to analyze and prioritize coverage gaps.\n</commentary>\n</example>
+description: |
+  Use this agent when you need to run code coverage tools, analyze coverage reports, or get insights about test coverage gaps in your codebase. This agent excels at executing coverage commands, interpreting results, and providing actionable recommendations for improving test coverage. Examples:
+
+  <example>
+  Context: The user wants to check test coverage after writing new code or tests.
+  user: "Can you run the coverage report and tell me what needs testing?"
+  assistant: "I'll use the coverage-analyzer agent to run the coverage tools and analyze the results."
+  <commentary>
+  Since the user is asking about code coverage analysis, use the Task tool to launch the coverage-analyzer agent to run coverage tools and provide insights.
+  </commentary>
+  </example>
+
+  <example>
+  Context: The user has just written a new feature and wants to ensure adequate test coverage.
+  user: "I've finished implementing the user authentication module. What's the coverage looking like?"
+  assistant: "Let me use the coverage-analyzer agent to check the test coverage for your authentication module."
+  <commentary>
+  The user wants coverage analysis for newly written code, so use the coverage-analyzer agent to run coverage tools and identify gaps.
+  </commentary>
+  </example>
+
+  <example>
+  Context: The user receives a coverage report but needs help understanding it.
+  user: "I have this coverage report showing 65% coverage, but I'm not sure what to prioritize."
+  assistant: "I'll use the coverage-analyzer agent to analyze your coverage report and provide prioritized recommendations."
+  <commentary>
+  The user needs help interpreting coverage data, so use the coverage-analyzer agent to analyze and prioritize coverage gaps.
+  </commentary>
+  </example>
 color: yellow
 ---
 
