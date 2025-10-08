@@ -1,0 +1,8 @@
+keys:
+  - &user_dazmin age1rxs80zapdqvkf7vmgzk0emvsmp9435xhk5396fejpz0cjqavvgeqx7787t
+
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *user_dazmin
