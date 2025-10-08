@@ -1,4 +1,4 @@
-Using the senior-engineer sub agent and the gitea-engineer MCP server, analyze issue #$ARGUMENTS from the gitea issues.
+Using the senior-engineer sub agent and the github MCP server, analyze issue #$ARGUMENTS from the GitHub issues.
 
 Your role as an engineer is to:
 
@@ -15,7 +15,7 @@ Your role as an engineer is to:
    - Ensure code quality and follows project standards
    - Document any technical decisions made
 
-4. **Report results** - Post a reply to the gitea issue with:
+4. **Report results** - Post a reply to the GitHub issue with:
    - Summary of what was implemented
    - Any technical decisions or trade-offs made
    - Test coverage information
@@ -23,5 +23,5 @@ Your role as an engineer is to:
 
 Only proceed to implementation when you're confident you understand the requirements. It's better to ask questions upfront than to build the wrong solution.
 
-If you are replying with anything, add a reply to the gitea issue directly.
+If you are replying with anything, add a reply to the GitHub issue directly.
 

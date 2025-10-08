@@ -1,6 +1,6 @@
-# Gitea Issue Implementation Loop
+# GitHub Issue Implementation Loop
 ## OBJECTIVE
-Fetch implementation instructions from a Gitea issue comment and execute them with continuous quality validation until all checks pass, then report results back to the issue.
+Fetch implementation instructions from a GitHub issue comment and execute them with continuous quality validation until all checks pass, then report results back to the issue.
 
 ## Initial Setup
 ### Parse Arguments
@@ -48,8 +48,8 @@ case $PROJECT_TYPE in
     ;;
   "nix")
     QUALITY_CHECKS=(
-      "just format"
       "just lint"
+      "just check"
       "deadnix"
     )
     ;;
@@ -58,7 +58,7 @@ esac
 
 ## Phase 1: Fetch and Parse Instructions
 1. **Fetch Issue Instructions**
-   - Have `code-architect` sub-agent use `gitea-code-architect` MCP server
+   - Have `code-architect` sub-agent use `github` MCP server
    - Retrieve ALL issue single comments specified in `COMMENT_INDICES`:
    ```bash
    for index in "${COMMENT_ARRAY[@]}"; do
@@ -236,9 +236,9 @@ esac
        - GO TO PHASE 5 (Gitea Reporting)
    ```
 
-## Phase 5: Gitea Issue Reporting
-10. **Engineer Reports to Gitea**
-    - `engineer` sub-agent uses ONLY the `gitea-engineer` MCP server
+## Phase 5: GitHub Issue Reporting
+10. **Engineer Reports to GitHub**
+    - `engineer` sub-agent uses ONLY the `github` MCP server
     - **IMPORTANT**: Do NOT use bash, curl, or any other tools
     - Compose implementation report including:
       * Phase completed: $PHASE_NUMBER
@@ -247,7 +247,7 @@ esac
       * Tests added or modified
       * Performance improvements (if any)
       * Known limitations or future considerations
-    - Post comment to the original Gitea issue
+    - Post comment to the original GitHub issue
     - Example report format:
     ```
     ## Phase $PHASE_NUMBER Implementation Complete
@@ -272,8 +272,8 @@ esac
     Implementation completed successfully and ready for production.
     ```
 
-11. **Code Reviewer Reports to Gitea**
-    - `code-reviewer` sub-agent uses ONLY the `gitea-reviewer` MCP server
+11. **Code Reviewer Reports to GitHub**
+    - `code-reviewer` sub-agent uses ONLY the `github` MCP server
     - **IMPORTANT**: Do NOT use bash, curl, or any other tools
     - Compose code review report including:
       * Overall code quality assessment
@@ -317,7 +317,7 @@ esac
     - Print summary of:
       * Total iterations required
       * Time elapsed
-      * Both Gitea comment IDs posted
+      * Both GitHub comment IDs posted
     - EXIT SUCCESS
 
 ## Loop Control and Monitoring
@@ -339,17 +339,17 @@ if (current_iteration > MAX_ITERATIONS):
     - Persistent failures
     - Last error state
     - Recommendation for manual intervention
-    - Note: Gitea reporting skipped due to incomplete implementation
+    - Note: GitHub reporting skipped due to incomplete implementation
 ```
 
 ### Status Reporting Format
 ```
-=== Gitea Issue Implementation Status ===
+=== GitHub Issue Implementation Status ===
 Issue Comments: #$COMMENT_INDICES (${#COMMENT_ARRAY[@]} comments)
 Phase: $PHASE_NUMBER
 Project Type: $PROJECT_TYPE
 Loop Iteration: #X
-Status: [Implementation|Validation|Review|Final Check|Gitea Reporting]
+Status: [Implementation|Validation|Review|Final Check|GitHub Reporting]
 ----------------------------------------
 ```
 
@@ -359,8 +359,8 @@ Parsing arguments: COMMENT_INDICES="18,50", PHASE_NUMBER=2
 Will fetch 2 issue comments: 18 50
 Detected project type: Go
 
-Fetching Gitea issue comment #18...
-Fetching Gitea issue comment #50...
+Fetching GitHub issue comment #18...
+Fetching GitHub issue comment #50...
 Synthesizing requirements from 2 comments...
 Extracting phase 2 requirements...
 
@@ -416,18 +416,18 @@ Code Review for Phase 2 Implementation:
 
 SUCCESS: Phase 2 implementation complete!
 
-Gitea Reporting Phase:
-- Engineer posting implementation report to Gitea issue...
-  Using gitea-engineer MCP server only
+GitHub Reporting Phase:
+- Engineer posting implementation report to GitHub issue...
+  Using github MCP server only
   Posted comment ID: #87
-- Code reviewer posting review report to Gitea issue...
-  Using gitea-reviewer MCP server only
+- Code reviewer posting review report to GitHub issue...
+  Using github MCP server only
   Posted comment ID: #88
 
-Phase 2 fully complete with Gitea reporting done!
+Phase 2 fully complete with GitHub reporting done!
 Time elapsed: 10 minutes
 Total iterations: 4
-Gitea comments posted: #87 (engineer), #88 (reviewer)
+GitHub comments posted: #87 (engineer), #88 (reviewer)
 ```
 
 ## Integration Notes
@@ -442,13 +442,13 @@ When multiple comment indices are provided:
 4. **Context Preservation**: Maintain reference to source comment for each requirement
 
 ### MCP Server Communication
-- `code-architect` must establish connection to `gitea-code-architect` MCP server
-- `engineer` must use ONLY `gitea-engineer` MCP server for reporting
-- `code-reviewer` must use ONLY `gitea-reviewer` MCP server for reporting
+- `code-architect` must use `github` MCP server for fetching issue data
+- `engineer` must use ONLY `github` MCP server for reporting
+- `code-reviewer` must use ONLY `github` MCP server for reporting
 - Handle authentication and connection errors gracefully
 - Cache all fetched comment data to avoid repeated fetches
 - Batch fetch multiple comments if MCP server supports it
-- **CRITICAL**: Never use bash commands or other tools for Gitea interactions
+- **CRITICAL**: Never use bash commands or other tools for GitHub interactions
 
 ### Multi-Phase Coordination
 - Each phase builds on previous phases
@@ -460,4 +460,4 @@ When multiple comment indices are provided:
 - Network failures: Retry with exponential backoff
 - MCP server errors: Provide clear diagnostics
 - Build failures: Capture full logs for analysis
-- Gitea posting failures: Retry up to 3 times before failing
+- GitHub posting failures: Retry up to 3 times before failing

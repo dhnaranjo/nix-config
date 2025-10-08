@@ -42,9 +42,9 @@ Validate, commit, and push code changes ONLY after ALL quality checks pass throu
    ```
    **Nix Projects - Run in this order:**
    ```bash
-   just format
-   just lint
-   deadnix
+   just lint      # nix fmt
+   just check     # nix flake check
+   deadnix        # find dead code
    ```
 3. **Capture Check Results:**
    - Count total checks run

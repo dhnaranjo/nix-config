@@ -70,4 +70,4 @@
   - NEVER create documentation unless working on a coding project
   - Commit AGENTS.md to preserve AI assistant configuration on new machines
   - When coding, keep the project as modular as possible.
-  - When asked to look at screenshots without a specific path, check ~/Screenshots/ directory
+  - When asked to look at screenshots without a specific path, check ~/Desktop/ first (macOS default), then ~/Screenshots/
