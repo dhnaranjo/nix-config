@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  # Nix packages to install to $HOME
-  #
-  # Search for packages here: https://search.nixos.org/packages
   home.packages = with pkgs; [
     omnix
 
@@ -53,17 +50,11 @@
   ];
 
   programs = {
-    # Better `cat`
     # Disabled because of error related to Ghostty install via homebrew. Revisit
     bat.enable = false;
-    # Type `<ctrl> + r` to fuzzy search your shell history
     fzf.enable = true;
     jq.enable = true;
-    # Install btop https://github.com/aristocratos/btop
     btop.enable = true;
     yt-dlp.enable = true;
-
-    # Disabled - not available in standalone home-manager on darwin
-    # ghostty.enable = true;
   };
 }

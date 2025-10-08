@@ -1,4 +1,3 @@
-# List of users for darwin or nixos system and their top-level configuration.
 {
   self,
   pkgs,
@@ -46,12 +45,10 @@ in
       }
     );
 
-    # Enable home-manager for our user
     home-manager.users = mapListToAttrs config.myusers (name: {
       imports = [ (self + /configurations/home/${name}.nix) ];
     });
 
-    # All users can add Nix caches.
     nix.settings.trusted-users = [
       "root"
     ]

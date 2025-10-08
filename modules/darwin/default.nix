@@ -1,5 +1,3 @@
-# This is your nix-darwin configuration.
-# For home configuration, see /modules/home/*
 { pkgs, ... }:
 let
   pam_monitor = pkgs.callPackage ./pam-monitor { };
@@ -18,13 +16,12 @@ in
   '';
 
   # Configure macOS system
-  # More flatbutts => https://github.com/ryan4yin/nix-darwin-kickstarter/blob/main/rich-demo/modules/system.nix
+  # More options: https://github.com/ryan4yin/nix-darwin-kickstarter/blob/main/rich-demo/modules/system.nix
   system = {
     defaults = {
       dock = {
         autohide = true;
         static-only = true;
-        # customize Hot Corners
         wvous-tl-corner = 2; # top-left - Mission Control
         wvous-tr-corner = 14; # top-right - Quick Note
         wvous-bl-corner = 3; # bottom-left - Application Windows
