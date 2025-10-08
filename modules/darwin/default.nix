@@ -8,6 +8,7 @@ in
   imports = [
     ./common
     ./homebrew.nix
+    ./apps-fix.nix
   ];
 
   # Monitor-based authentication + TouchID fallback for sudo
