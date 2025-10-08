@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   programs.opencode = {
     enable = true;
@@ -9,44 +9,23 @@
 
       mcp = {
         exa = {
-          type = "local";
-          command = [
-            "npx"
-            "-y"
-            "exa-mcp-server"
-          ];
+          type = "remote";
+          url = "https://mcp.exa.ai/mcp?exaApiKey={file:${config.sops.secrets.exa-api-key.path}}";
           enabled = true;
-          environment = {
-            # EXA_API_KEY = "{file:${config.sops.secrets.exa-api-key.path}}";
-          };
         };
 
         ref = {
-          type = "local";
-          command = [
-            "npx"
-            "ref-tools-mcp@latest"
-          ];
+          type = "remote";
+          url = "https://api.ref.tools/mcp?apiKey={file:${config.sops.secrets.ref-mcp-api-key.path}}";
           enabled = true;
-          environment = {
-            # REF_API_KEY = "{file:${config.sops.secrets.ref-mcp-api-key.path}}";
-          };
         };
 
         github = {
           type = "local";
-          command = [
-            "podman"
-            "run"
-            "-i"
-            "--rm"
-            "-e"
-            "GITHUB_PERSONAL_ACCESS_TOKEN"
-            "ghcr.io/github/github-mcp-server"
-          ];
+          command = [ "${pkgs.github-mcp-server}/bin/github-mcp-server" ];
           enabled = true;
           environment = {
-            # GITHUB_PERSONAL_ACCESS_TOKEN = "{file:${config.sops.secrets.github-token.path}}";
+            GITHUB_PERSONAL_ACCESS_TOKEN = "{file:${config.sops.secrets.github-token.path}}";
           };
         };
       };
