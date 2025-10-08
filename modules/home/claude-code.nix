@@ -2,71 +2,68 @@
   flake,
   config,
   pkgs,
+  lib,
   ...
 }:
 let
   inherit (flake) inputs;
-  mcp-servers = inputs.mcp-servers-nix.lib;
-in
-{
-  # Claude Code configuration using mcp-servers-nix framework
-  home.file.".config/claude/claude_desktop_config.json".source = mcp-servers.mkConfig pkgs {
-    format = "json";
-    fileName = "claude_desktop_config.json";
 
-    programs = {
-      # GitHub MCP server with authentication via passwordCommand
+  # Use mcp-servers-nix to get the GitHub package, but build config manually for OpenCode
+  mcp-packages = inputs.mcp-servers-nix.packages.${pkgs.system};
+
+  # Generate OpenCode configuration directly (OpenCode format differs from Claude Desktop)
+  opencodeConfig = {
+    "$schema" = "https://opencode.ai/config.json";
+    model = "anthropic/claude-sonnet-4-20250514";
+    autoupdate = true;
+
+    mcp = {
+      # GitHub MCP server (local/stdio)
       github = {
-        enable = true;
-        passwordCommand = {
-          GITHUB_PERSONAL_ACCESS_TOKEN = [
-            "${pkgs.coreutils}/bin/cat"
-            config.sops.secrets.github-token.path
-          ];
+        type = "local";
+        enabled = true;
+        command = [ "${lib.getExe mcp-packages.github-mcp-server}" ];
+        environment = {
+          # OpenCode supports {file:path} syntax for reading secrets
+          GITHUB_PERSONAL_ACCESS_TOKEN = "{file:${config.sops.secrets.github-token.path}}";
         };
       };
-    };
 
-    # Custom servers for Exa and Ref (URL-based SSE MCPs)
-    # Using passwordCommand to set env vars, then referencing them in URLs via {env:}
-    settings.servers = {
+      # Exa MCP server (remote/SSE)
       exa = {
-        type = "sse";
-        url = "https://mcp.exa.ai/mcp?exaApiKey={env:EXA_API_KEY}";
-        passwordCommand = {
-          EXA_API_KEY = [
-            "${pkgs.coreutils}/bin/cat"
-            config.sops.secrets.exa-api-key.path
-          ];
-        };
+        type = "remote";
+        enabled = true;
+        # OpenCode supports {file:path} syntax in URLs
+        url = "https://mcp.exa.ai/mcp?exaApiKey={file:${config.sops.secrets.exa-api-key.path}}";
       };
 
+      # Ref MCP server (remote/SSE)
       ref = {
-        type = "sse";
-        url = "https://api.ref.tools/mcp?apiKey={env:REF_API_KEY}";
-        passwordCommand = {
-          REF_API_KEY = [
-            "${pkgs.coreutils}/bin/cat"
-            config.sops.secrets.ref-mcp-api-key.path
-          ];
-        };
+        type = "remote";
+        enabled = true;
+        # OpenCode supports {file:path} syntax in URLs
+        url = "https://api.ref.tools/mcp?apiKey={file:${config.sops.secrets.ref-mcp-api-key.path}}";
       };
     };
   };
+in
+{
+  # OpenCode configuration
+  home.file.".config/opencode/config.json".text = builtins.toJSON opencodeConfig;
 
-  # Claude Code configuration files (commands and agents)
+  # OpenCode configuration files (commands and agents)
   home.file = {
-    ".config/claude/command" = {
+    ".config/opencode/command" = {
       source = ../../apps/claude-code/commands;
       recursive = true;
     };
 
-    ".config/claude/agent" = {
+    ".config/opencode/agent" = {
       source = ../../apps/claude-code/agents;
       recursive = true;
     };
 
     # Global instructions (equivalent to CLAUDE.md)
-    ".config/claude/CLAUDE.md".text = builtins.readFile ../../apps/claude-code/CLAUDE.md;
+    ".config/opencode/AGENTS.md".text = builtins.readFile ../../apps/claude-code/CLAUDE.md;
   };
 }
