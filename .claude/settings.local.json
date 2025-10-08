@@ -4,18 +4,20 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:github.io)",
-      "WebFetch(domain:githubusercontent.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:gitlab.com)",
       "WebFetch(domain:nixos.org)",
       "WebFetch(domain:mynixos.com)",
-
       "Bash(nix flake show:*)",
       "Bash(nix flake check:*)",
       "Bash(nix registry:*)",
       "Bash(nix log:*)",
       "Bash(nix-prefetch-url:*)",
       "Read(//nix/store/**)",
-
-      "Bash(just:*)"
+      "Bash(just:*)",
+      "Bash(nix-store:*)",
+      "Bash(nix flake metadata:*)",
+      "Bash(nix derivation show:*)"
     ],
     "deny": [],
     "ask": []
