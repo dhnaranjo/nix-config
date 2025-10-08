@@ -123,37 +123,8 @@
         };
       };
 
-      # ===== Home Manager Configurations =====
-      # Managed by home-manager flake-parts module
-      # Options: https://flake.parts/options/home-manager.html
-      flake.homeConfigurations = {
-        dazmin = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import inputs.nixpkgs {
-            system = "aarch64-darwin";
-            config.allowUnfree = true;
-            overlays = [
-              inputs.nur.overlays.default
-              inputs.nixpkgs-firefox-darwin.overlay
-              inputs.mcp-servers-nix.overlays.default
-            ];
-          };
-
-          extraSpecialArgs = {
-            flake = {
-              inherit inputs;
-              inherit self;
-            };
-          };
-
-          modules = [
-            inputs.sops-nix.homeManagerModules.sops
-            ./modules/home # Auto-imports default.nix
-            ./configurations/home/dazmin.nix
-          ];
-        };
-      };
-
       # Export reusable modules
+      # Home configuration is deployed via darwin integration (see modules/darwin/common/myusers.nix)
       flake.darwinModules.default = ./modules/darwin;
       flake.homeModules.default = ./modules/home;
     };
