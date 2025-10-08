@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   nix-homebrew = {
     enable = true;
@@ -16,17 +16,15 @@
     };
 
     casks = [
-      "ghostty"
       "claude"
       "firefox"
+      "hey-desktop"
     ];
   };
 
   # Remove packages that must be handled by Homebrew
-  # Consider package/nur/gigamonster256.ghostty-darwin
   home-manager.users.dazmin = {
     programs = {
-      ghostty.package = null;
       firefox.package = null;
     };
   };

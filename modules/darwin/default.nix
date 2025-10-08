@@ -7,6 +7,7 @@ in
     ./common
     ./homebrew.nix
     ./apps-fix.nix
+    ./ghostty.nix
   ];
 
   # Monitor-based authentication + TouchID fallback for sudo
