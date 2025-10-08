@@ -77,6 +77,16 @@
           ];
           enabled = true;
         };
+
+        # Filesystem access for /nix/store
+        readNixStore = {
+          type = "local";
+          command = [ "${pkgs.mcp-server-filesystem}/bin/mcp-server-filesystem" ];
+          args = [
+            "/nix/store"
+          ];
+          enabled = true;
+        };
       };
     };
 

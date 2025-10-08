@@ -1,21 +1,19 @@
 {
-  inputs,
   pkgs,
+  lib,
+  neovimPackage,
   ...
 }:
+let
+  langs = import ../../languages { inherit pkgs lib; };
+in
 {
-  imports = [
-    inputs.nvf.homeManagerModules.default
-    ./languages/openscad.nix
-  ];
-
-  programs.nvf = import ./nvf.nix { inherit pkgs; } // {
-    enable = true;
-  };
-
-  home.packages = with pkgs; [
-    # Snacks.image deps
+  home.packages = [
+    neovimPackage
+  ]
+  ++ langs.allPackages
+  ++ (with pkgs; [
     ghostscript
     mermaid-cli
-  ];
+  ]);
 }

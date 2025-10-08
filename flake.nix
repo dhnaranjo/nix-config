@@ -13,10 +13,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Docs: https://flake.parts/options/easy-hosts.html
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,52 +41,61 @@
 
   outputs =
     inputs@{ self, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        # Docs: https://flake.parts/options/home-manager.html
-        inputs.home-manager.flakeModules.home-manager
-        # Docs: https://flake.parts/options/easy-hosts.html
-        inputs.easy-hosts.flakeModule
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { withSystem, ... }:
+      {
+        imports = [
+          inputs.home-manager.flakeModules.home-manager
+          inputs.easy-hosts.flakeModule
 
-        ./modules/flake/devshell.nix
-        ./modules/flake/treefmt.nix
-      ];
+          ./modules/flake/devshell.nix
+          ./modules/flake/treefmt.nix
+          ./modules/flake/nvf.nix
+        ];
 
-      systems = [
-        "aarch64-darwin"
-        "x86_64-darwin"
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+        systems = [
+          "aarch64-darwin"
+          "x86_64-darwin"
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
 
-      easy-hosts = {
-        shared = {
-          modules = [
-            ./modules/darwin
-            {
-              # Pass inputs/self to home-manager modules (easy-hosts auto-provides these to darwin modules)
-              home-manager.extraSpecialArgs = {
-                inherit inputs self;
-              };
-            }
-          ];
-        };
+        easy-hosts = {
+          shared = {
+            modules = [
+              ./modules/darwin
+              (
+                { pkgs, ... }:
+                {
+                  home-manager.extraSpecialArgs = withSystem pkgs.system (
+                    { config, ... }:
+                    {
+                      inherit inputs self;
+                      neovimPackage = config.packages.neovim;
+                    }
+                  );
+                }
+              )
+            ];
+          };
 
-        perClass = class: {
-          modules = if class == "darwin" then [ inputs.home-manager.darwinModules.home-manager ] else [ ];
-        };
+          perClass = class: {
+            modules = if class == "darwin" then [ inputs.home-manager.darwinModules.home-manager ] else [ ];
+          };
 
-        hosts = {
-          flatbutt = {
-            class = "darwin";
-            arch = "aarch64";
-            modules = [ ./configurations/darwin/flatbutt.nix ];
+          hosts = {
+            flatbutt = {
+              class = "darwin";
+              arch = "aarch64";
+              modules = [ ./configurations/darwin/flatbutt.nix ];
+            };
           };
         };
-      };
 
-      # Home configuration is deployed via darwin integration (see modules/darwin/common/myusers.nix)
-      flake.darwinModules.default = ./modules/darwin;
-      flake.homeModules.default = ./modules/home;
-    };
+        flake.darwinModules.default = ./modules/darwin;
+        flake.homeModules.default = ./modules/home;
+
+        flake.inputPaths = builtins.mapAttrs (name: input: input.outPath) inputs;
+      }
+    );
 }

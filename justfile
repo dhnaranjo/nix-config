@@ -30,3 +30,8 @@ dev:
 [group('Main')]
 deploy:
   darwin-rebuild switch --flake .#flatbutt
+
+# Get the store path for a named flake input
+[group('dev')]
+inputPath NAME:
+  nix eval .#inputPaths.{{NAME}} --raw
