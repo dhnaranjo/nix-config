@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
-  enableManpages = true;
-  settings = {
-    vim = {
+  vim = {
       viAlias = false;
       vimAlias = true;
 
@@ -223,7 +221,6 @@
           (mkLuaKeymap "Colorschemes" "<leader>uC" "Snacks.picker.colorschemes()" { })
         ];
 
-      extraPackages = [ pkgs.imagemagick ];
-    };
+    extraPackages = [ pkgs.imagemagick ];
   };
 }

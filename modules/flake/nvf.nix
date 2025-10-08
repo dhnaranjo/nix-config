@@ -17,15 +17,7 @@
       # Build neovim using standalone nvf
       neovimConfig = inputs.nvf.lib.neovimConfiguration {
         inherit pkgs;
-        modules = [
-          {
-            config = {
-              # Convert the old format to standalone format
-              vim = baseConfig.settings.vim;
-            };
-          }
-        ]
-        ++ langs.nvfModules;
+        modules = [ baseConfig ] ++ langs.nvfModules;
       };
     in
     {

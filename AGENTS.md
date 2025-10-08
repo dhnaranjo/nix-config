@@ -13,7 +13,11 @@
 **Always prefer MCP-provided tools over raw shell calls**
 
 ### Preference Order
-1. **File operations**: Serena tools > Bash (last resort only)
+1. **File operations**: 
+   - Full file rewrites: Native `Edit` tool (preferred) > `serena_replace_regex`
+   - Targeted edits: `serena_replace_regex` with wildcards
+   - Symbol-level edits: Serena symbol tools
+   - Last resort: Bash
 2. **Code search**: Serena symbols/pattern search > Bash
 3. **File finding**: Serena/Glob > Bash
 4. **Documentation search**:

@@ -53,12 +53,7 @@
           ./modules/flake/nvf.nix
         ];
 
-        systems = [
-          "aarch64-darwin"
-          "x86_64-darwin"
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
+        systems = [ "aarch64-darwin" ];
 
         easy-hosts = {
           shared = {
