@@ -1,13 +1,12 @@
 # List of users for darwin or nixos system and their top-level configuration.
 {
-  flake,
+  self,
   pkgs,
   lib,
   config,
   ...
 }:
 let
-  inherit (flake.inputs) self;
   mapListToAttrs =
     m: f:
     lib.listToAttrs (

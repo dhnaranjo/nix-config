@@ -84,11 +84,8 @@
             ./modules/darwin # Auto-imports default.nix
           ];
 
-          # Make inputs available to all modules as 'flake.inputs' and 'flake.self'
-          specialArgs.flake = {
-            inherit inputs;
-            inherit self;
-          };
+          # Note: easy-hosts automatically provides 'inputs' and 'self' to all modules
+          # No need to configure specialArgs.flake wrapper
         };
 
         # Per-class configuration (darwin, nixos, etc)
@@ -99,7 +96,8 @@
             (
               if class == "darwin" then
                 {
-                  home-manager.extraSpecialArgs.flake = {
+                  # Make inputs/self available to home-manager modules
+                  home-manager.extraSpecialArgs = {
                     inherit inputs;
                     inherit self;
                   };

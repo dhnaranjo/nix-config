@@ -1,11 +1,11 @@
 {
-  flake,
+  inputs,
   pkgs,
   ...
 }:
 {
   imports = [
-    flake.inputs.nvf.homeManagerModules.default
+    inputs.nvf.homeManagerModules.default
     ./languages/openscad.nix
   ];
 
