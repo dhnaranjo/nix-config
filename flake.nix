@@ -82,31 +82,19 @@
         shared = {
           modules = [
             ./modules/darwin # Auto-imports default.nix
+            {
+              # Pass inputs/self to home-manager modules
+              # (easy-hosts auto-provides these to darwin modules)
+              home-manager.extraSpecialArgs = {
+                inherit inputs self;
+              };
+            }
           ];
-
-          # Note: easy-hosts automatically provides 'inputs' and 'self' to all modules
-          # No need to configure specialArgs.flake wrapper
         };
 
         # Per-class configuration (darwin, nixos, etc)
         perClass = class: {
-          modules = [
-            # Add home-manager to all darwin hosts
-            (if class == "darwin" then inputs.home-manager.darwinModules.home-manager else { })
-            (
-              if class == "darwin" then
-                {
-                  # Make inputs/self available to home-manager modules
-                  home-manager.extraSpecialArgs = {
-                    inherit inputs;
-                    inherit self;
-                  };
-                }
-              else
-                { }
-            )
-          ];
-          specialArgs = { };
+          modules = if class == "darwin" then [ inputs.home-manager.darwinModules.home-manager ] else [ ];
         };
 
         # Define individual hosts
