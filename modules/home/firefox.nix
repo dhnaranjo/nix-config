@@ -2,18 +2,6 @@
 let
   buildFirefoxXpiAddon = pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon;
 
-  wrappedFirefox =
-    (pkgs.wrapFirefox (pkgs.firefox-bin.overrideAttrs (old: {
-      applicationName = "Firefox";
-      allowAddonSideload = true;
-      passthru = (old.passthru or { }) // {
-        inherit (old) meta;
-      };
-    })) { }).override
-      {
-        libcanberra-gtk3 = null;
-      };
-
   # Can grab ID value with ex: `curl -O https://addons.mozilla.org/firefox/downloads/file/4562821/icloud_passwords-3.1.27.xpi --output-dir /tmp  -w '%{filename_effective}' | xargs -I {} acat {} manifest.json  | jq --raw-output '.browser_specific_settings.gecko.id'`
   customAddons = {
     icloud-passwords = buildFirefoxXpiAddon {
