@@ -6,7 +6,6 @@
   callPackage,
   protobuf3_21,
   boost,
-  stb,
   rapidjson,
   spdlog,
   fmt,
@@ -14,6 +13,12 @@
 
 let
   libarcus = callPackage ./libarcus.nix { };
+  mapbox-geometry = callPackage ./mapbox-geometry.nix { };
+  mapbox-wagyu = callPackage ./mapbox-wagyu.nix { };
+  clipper = callPackage ./clipper.nix { };
+  range-v3 = callPackage ./range-v3.nix { };
+  scripta = callPackage ./scripta.nix { };
+  stb = callPackage ./stb-with-cmake.nix { };
 in
 stdenv.mkDerivation rec {
   pname = "curaengine";
@@ -26,7 +31,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-pq0h2H3+TT1GTW2zZvPwlxCZO+8ShFx3tSNYkhm6Jc8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    stdenv.cc.bintools.bintools
+  ];
   
   buildInputs = [
     libarcus
@@ -36,6 +44,11 @@ stdenv.mkDerivation rec {
     rapidjson
     spdlog
     fmt
+    mapbox-geometry
+    mapbox-wagyu
+    clipper
+    range-v3
+    scripta
   ];
 
   cmakeFlags = [
@@ -50,9 +63,20 @@ stdenv.mkDerivation rec {
       --replace-fail "AssureOutOfSourceBuilds()" "" \
       --replace-fail "set_project_warnings(_CuraEngine)" "" \
       --replace-fail "enable_sanitizers(_CuraEngine)" "" \
-      --replace-fail "use_threads(_CuraEngine)" "find_package(Threads REQUIRED)"
+      --replace-fail "use_threads(_CuraEngine)" "" \
+      --replace-fail "use_threads(CuraEngine)" "" \
+      --replace-fail "boost::boost" "Boost::headers"
   '';
 
+  installPhase = ''
+    runHook preInstall
+    
+    mkdir -p $out/bin
+    cp CuraEngine $out/bin/
+    install_name_tool -add_rpath ${libarcus}/lib $out/bin/CuraEngine
+    
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description = "Powerful, fast and robust engine for processing 3D models into 3D printing instruction";
