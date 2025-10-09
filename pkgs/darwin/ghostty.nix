@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
 
     description = "Fast, native, feature-rich terminal emulator pushing modern features";
     longDescription = ''
@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://ghostty.org/";
     downloadPage = "https://ghostty.org/download";
     changelog = "https://ghostty.org/docs/install/release-notes/${
-      builtins.replaceStrings ["."] ["-"] finalAttrs.version
+      builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version
     }";
     license = lib.licenses.mit;
     mainProgram = "ghostty";

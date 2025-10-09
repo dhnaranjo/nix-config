@@ -1,7 +1,8 @@
 { inputs, ... }:
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
-  perSystem = { pkgs, lib, ... }:
+  perSystem =
+    { pkgs, lib, ... }:
     let
       langs = import ../languages { inherit pkgs lib; };
     in

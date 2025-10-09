@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.mcp-servers.filesystem;
 
@@ -23,7 +28,10 @@ in
   config = lib.mkIf cfg.enable {
     programs.opencode.settings.mcp.readNixStore = {
       type = "local";
-      command = [ "${mcp-server-filesystem}/bin/mcp-server-filesystem" cfg.path ];
+      command = [
+        "${mcp-server-filesystem}/bin/mcp-server-filesystem"
+        cfg.path
+      ];
       enabled = true;
     };
   };

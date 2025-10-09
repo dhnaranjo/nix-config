@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.mcp-servers.serena;
 
@@ -48,7 +53,10 @@ let
       "--prefix"
       "PATH"
       ":"
-      (lib.makeBinPath [ pkgs.nodejs pkgs.pyright ])
+      (lib.makeBinPath [
+        pkgs.nodejs
+        pkgs.pyright
+      ])
     ];
 
     pythonImportsCheck = [ "serena" ];

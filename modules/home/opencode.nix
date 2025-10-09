@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   mcpServers = import ../mcp-servers { inherit config lib pkgs; };
 in
