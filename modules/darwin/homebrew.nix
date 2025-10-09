@@ -19,6 +19,7 @@
       "claude"
       "firefox"
       "hey-desktop"
+      "orcaslicer"
     ];
   };
 
