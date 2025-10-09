@@ -14,7 +14,6 @@
   nixpkgs.overlays = [
     inputs.nur.overlays.default
     inputs.nixpkgs-firefox-darwin.overlay
-    inputs.mcp-servers-nix.overlays.default
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
