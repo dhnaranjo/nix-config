@@ -1,6 +1,9 @@
 { pkgs, ... }:
+let
+  curaengine = pkgs.callPackage ../../pkgs/darwin/curaengine.nix { };
+in
 {
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     omnix
 
     # Updating outdated Mac builtins
@@ -47,7 +50,7 @@
     yt-dlp
     aria2
     openscad-unstable
-  ];
+  ]) ++ [ curaengine ];
 
   programs = {
     bat.enable = true;
