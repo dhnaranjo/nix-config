@@ -46,6 +46,10 @@ in
         ]);
 
       settings = {
+        "browser.startup.page" = 0;
+        "browser.newtabpage.enabled" = false;
+        "browser.newtab.url" = "about:blank";
+
         "browser.contentblocking.category" = "strict";
         "privacy.donottrackheader.enabled" = true;
         "privacy.trackingprotection.enabled" = true;
