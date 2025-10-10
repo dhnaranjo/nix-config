@@ -1,13 +1,13 @@
 { pkgs, config, ... }:
 let
   pam_monitor = pkgs.callPackage ./pam-monitor { };
-  
+
   # Shell script to encode password for /etc/kcpassword
   kcpasswordEncode = pkgs.writeShellScript "kcpassword-encode" ''
     thisString="$1"
     cipherHex_array=( 7D 89 52 23 D2 BC DD EA A3 B9 1F )
     thisStringHex_array=( $(/bin/echo -n "''${thisString}" | ${pkgs.xxd}/bin/xxd -p -u | ${pkgs.gnused}/bin/sed 's/../& /g') )
-    
+
     if [ "''${#thisStringHex_array[@]}" -lt 12  ]; then
       padding=$(( 12 -  ''${#thisStringHex_array[@]} ))
     elif [ "$(( ''${#thisStringHex_array[@]} % 12 ))" -ne 0  ]; then
@@ -15,7 +15,7 @@ let
     else
       padding=12
     fi
-    
+
     for ((i=0; i < $(( ''${#thisStringHex_array[@]} + ''${padding})); i++)); do
       charHex_cipher=''${cipherHex_array[$(( $i % 11 ))]}
       charHex=''${thisStringHex_array[$i]}
@@ -35,7 +35,7 @@ in
   sops = {
     defaultSopsFile = ../../secrets/secrets.enc.yaml;
     age.sshKeyPaths = [ "/Users/dazmin/.ssh/id_ed25519" ];
-    
+
     secrets.dazmin-password = {
       mode = "0400";
       owner = "root";
@@ -52,10 +52,10 @@ in
 
   system.activationScripts.userActivation.text = ''
     sudo -u dazmin ${pkgs.defaultbrowser}/bin/defaultbrowser firefox
-    
+
     sudo -u dazmin defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
     sudo -u dazmin defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
-    
+
     sudo -u dazmin defaults write com.apple.frameworks.diskimages skip-verify -bool true
     sudo -u dazmin defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
     sudo -u dazmin defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
@@ -122,7 +122,7 @@ in
           NSQuitAlwaysKeepsWindows = false;
         };
         "com.apple.loginwindow" = {
-          TALLogoutSavesState = false;  # Disable window reopening on logout/restart
+          TALLogoutSavesState = false; # Disable window reopening on logout/restart
         };
         "com.apple.systempreferences" = {
           NSQuitAlwaysKeepsWindows = false;

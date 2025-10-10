@@ -19,15 +19,15 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/include
     cp -r include/mapbox $out/include/
-    
+
     mkdir -p $out/lib/cmake/mapbox-geometry
     cat > $out/lib/cmake/mapbox-geometry/mapbox-geometryConfig.cmake << EOF
     get_filename_component(mapbox-geometry_CMAKE_DIR "\''${CMAKE_CURRENT_LIST_FILE}" PATH)
     set(mapbox-geometry_INCLUDE_DIRS "$out/include")
-    
+
     if(NOT TARGET mapbox-geometry::mapbox-geometry)
       add_library(mapbox-geometry::mapbox-geometry INTERFACE IMPORTED)
       set_target_properties(mapbox-geometry::mapbox-geometry PROPERTIES
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
       )
     endif()
     EOF
-    
+
     runHook postInstall
   '';
 

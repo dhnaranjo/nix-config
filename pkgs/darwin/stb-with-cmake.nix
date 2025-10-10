@@ -13,16 +13,16 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/include
     # Copy stb headers to root include dir so they can be found as <stb_image.h>
     cp ${stb}/include/stb/* $out/include/
-    
+
     mkdir -p $out/lib/cmake/stb
     cat > $out/lib/cmake/stb/stbConfig.cmake << EOF
     get_filename_component(stb_CMAKE_DIR "\''${CMAKE_CURRENT_LIST_FILE}" PATH)
     set(stb_INCLUDE_DIRS "$out/include")
-    
+
     if(NOT TARGET stb::stb)
       add_library(stb::stb INTERFACE IMPORTED)
       set_target_properties(stb::stb PROPERTIES
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
       )
     endif()
     EOF
-    
+
     runHook postInstall
   '';
 

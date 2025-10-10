@@ -36,20 +36,20 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/lib
     mkdir -p $out/include/Arcus
     mkdir -p $out/lib/cmake/arcus
-    
+
     cp libArcus.dylib $out/lib/
     cp -r ../include/Arcus/* $out/include/Arcus/
-    
+
     # Create CMake config file
     cat > $out/lib/cmake/arcus/arcusConfig.cmake << EOF
     get_filename_component(arcus_CMAKE_DIR "\''${CMAKE_CURRENT_LIST_FILE}" PATH)
     set(arcus_INCLUDE_DIRS "$out/include")
     set(arcus_LIBRARIES "$out/lib/libArcus.dylib")
-    
+
     if(NOT TARGET arcus::arcus)
       add_library(arcus::arcus SHARED IMPORTED)
       set_target_properties(arcus::arcus PROPERTIES
@@ -57,13 +57,13 @@ stdenv.mkDerivation rec {
         INTERFACE_INCLUDE_DIRECTORIES "$out/include"
       )
     endif()
-    
+
     # Also create Arcus target for compatibility
     if(NOT TARGET Arcus)
       add_library(Arcus ALIAS arcus::arcus)
     endif()
     EOF
-    
+
     runHook postInstall
   '';
 

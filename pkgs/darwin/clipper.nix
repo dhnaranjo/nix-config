@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     get_filename_component(clipper_CMAKE_DIR "\''${CMAKE_CURRENT_LIST_FILE}" PATH)
     set(clipper_INCLUDE_DIRS "$out/include/polyclipping")
     set(clipper_LIBRARIES "$out/lib/libpolyclipping.dylib")
-    
+
     if(NOT TARGET clipper::clipper)
       add_library(clipper::clipper SHARED IMPORTED)
       set_target_properties(clipper::clipper PROPERTIES

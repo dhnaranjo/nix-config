@@ -25,15 +25,15 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/include
     cp -r include/mapbox $out/include/
-    
+
     mkdir -p $out/lib/cmake/mapbox-wagyu
     cat > $out/lib/cmake/mapbox-wagyu/mapbox-wagyuConfig.cmake << EOF
     get_filename_component(mapbox-wagyu_CMAKE_DIR "\''${CMAKE_CURRENT_LIST_FILE}" PATH)
     set(mapbox-wagyu_INCLUDE_DIRS "$out/include")
-    
+
     if(NOT TARGET mapbox-wagyu::mapbox-wagyu)
       add_library(mapbox-wagyu::mapbox-wagyu INTERFACE IMPORTED)
       set_target_properties(mapbox-wagyu::mapbox-wagyu PROPERTIES
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       )
     endif()
     EOF
-    
+
     runHook postInstall
   '';
 

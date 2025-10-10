@@ -34,15 +34,15 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/include
     cp -r ../include/scripta $out/include/
-    
+
     mkdir -p $out/lib/cmake/scripta
     cat > $out/lib/cmake/scripta/scriptaConfig.cmake << EOF
     get_filename_component(scripta_CMAKE_DIR "\''${CMAKE_CURRENT_LIST_FILE}" PATH)
     set(scripta_INCLUDE_DIRS "$out/include")
-    
+
     if(NOT TARGET scripta::scripta)
       add_library(scripta::scripta INTERFACE IMPORTED)
       set_target_properties(scripta::scripta PROPERTIES
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       )
     endif()
     EOF
-    
+
     runHook postInstall
   '';
 

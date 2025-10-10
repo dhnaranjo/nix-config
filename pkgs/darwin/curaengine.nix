@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     cmake
     stdenv.cc.bintools.bintools
   ];
-  
+
   buildInputs = [
     libarcus
     protobuf3_21
@@ -70,11 +70,11 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/bin
     cp CuraEngine $out/bin/
     install_name_tool -add_rpath ${libarcus}/lib $out/bin/CuraEngine
-    
+
     runHook postInstall
   '';
 
