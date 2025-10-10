@@ -14,9 +14,9 @@ in
     exa.enable = true;
     ref.enable = true;
     github.enable = true;
-    serena.enable = true;
-    git.enable = true;
-    memory.enable = true;
+    serena.enable = false;
+    git.enable = false;
+    memory.enable = false;
     sequential-thinking.enable = true;
     nixos.enable = true;
     filesystem.enable = true;
