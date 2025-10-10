@@ -21,6 +21,8 @@
 
   system.primaryUser = "dazmin";
 
+  services.silverbullet.enable = true;
+
   home-manager.backupFileExtension = "hm-backup";
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;

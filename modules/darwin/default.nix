@@ -29,6 +29,7 @@ in
     ./homebrew.nix
     ./apps-fix.nix
     ./ghostty.nix
+    ./silverbullet.nix
   ];
 
   # Configure sops for system-level secrets
