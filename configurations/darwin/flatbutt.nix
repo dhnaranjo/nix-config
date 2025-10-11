@@ -23,6 +23,14 @@
 
   services.silverbullet.enable = true;
 
+  services.reverse-proxy = {
+    enable = true;
+    virtualHosts.sb = {
+      upstreamPort = 3456;
+      listenPort = 443;
+    };
+  };
+
   home-manager.backupFileExtension = "hm-backup";
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;

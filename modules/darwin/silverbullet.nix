@@ -48,7 +48,7 @@ in
       { lib, ... }:
       {
         home.activation.createSilverbulletDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          $DRY_RUN_CMD mkdir -p "${cfg.dataDir}"
+          mkdir -p "${cfg.dataDir}"
         '';
 
         launchd.agents.silverbullet = {

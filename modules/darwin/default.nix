@@ -30,6 +30,7 @@ in
     ./apps-fix.nix
     ./ghostty.nix
     ./silverbullet.nix
+    ./reverse-proxy.nix
   ];
 
   # Configure sops for system-level secrets
