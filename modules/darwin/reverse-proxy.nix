@@ -38,6 +38,13 @@ in
   options.services.reverse-proxy = {
     enable = lib.mkEnableOption "reverse proxy server";
 
+    certificatePath = lib.mkOption {
+      type = lib.types.str;
+      default = "/Users/${config.system.primaryUser}/.local/share/caddy/pki/authorities/local/root.crt";
+      readOnly = true;
+      description = "Path to Caddy's root CA certificate for browser trust configuration";
+    };
+
     virtualHosts = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.submodule {
@@ -65,7 +72,15 @@ in
       ${hostsEntries}
     '';
 
-    environment.systemPackages = [ pkgs.nss pkgs.caddy ];
+    environment.systemPackages = [
+      pkgs.nss
+      pkgs.caddy
+    ];
+
+    # Auto-configure Firefox to trust Caddy certificates
+    home-manager.users.${config.system.primaryUser}.programs.firefox.policies.Certificates.Install = [
+      cfg.certificatePath
+    ];
 
     environment.userLaunchAgents.reverse-proxy = {
       enable = true;
@@ -81,13 +96,13 @@ in
           "caddyfile"
         ];
         EnvironmentVariables = {
-          XDG_DATA_HOME = "${config.users.users.dazmin.home}/.local/share";
-          XDG_CONFIG_HOME = "${config.users.users.dazmin.home}/.config";
+          XDG_DATA_HOME = "/Users/${config.system.primaryUser}/.local/share";
+          XDG_CONFIG_HOME = "/Users/${config.system.primaryUser}/.config";
         };
         KeepAlive = true;
         RunAtLoad = true;
-        StandardOutPath = "${config.users.users.dazmin.home}/.local/share/caddy/reverse-proxy.log";
-        StandardErrorPath = "${config.users.users.dazmin.home}/.local/share/caddy/reverse-proxy.error.log";
+        StandardOutPath = "/Users/${config.system.primaryUser}/.local/share/caddy/reverse-proxy.log";
+        StandardErrorPath = "/Users/${config.system.primaryUser}/.local/share/caddy/reverse-proxy.error.log";
       };
     };
   };

@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   buildFirefoxXpiAddon = pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon;
 
@@ -29,14 +34,6 @@ in
 {
   programs.firefox = {
     enable = true;
-
-    policies = {
-      Certificates = {
-        Install = [
-          "${config.home.homeDirectory}/.local/share/caddy/pki/authorities/local/root.crt"
-        ];
-      };
-    };
 
     profiles.default = {
       id = 0;

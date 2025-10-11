@@ -36,6 +36,12 @@ in
       description = "Port to run SilverBullet on";
     };
 
+    hostname = lib.mkOption {
+      type = lib.types.str;
+      default = "sb";
+      description = "HTTPS hostname for accessing SilverBullet";
+    };
+
     dataDir = lib.mkOption {
       type = lib.types.str;
       default = dataDir;
@@ -44,6 +50,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Auto-configure reverse proxy for HTTPS access
+    services.reverse-proxy = {
+      enable = true;
+      virtualHosts.${cfg.hostname} = {
+        upstreamPort = cfg.port;
+        listenPort = 443;
+      };
+    };
+
     home-manager.users.${config.system.primaryUser} =
       { lib, ... }:
       {
